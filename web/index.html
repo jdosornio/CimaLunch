@@ -1,16 +1,167 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html lang="es">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CimaLunch - Pagina Principal</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, 
+              maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/estilo.css" rel="stylesheet">
     </head>
     <body>
-        <div>TODO write content</div>
+        <header class="barra">          
+            <p class="navbar-text">Bienvenido Usuario!</p>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <button type="button" class="dropdown-toggle btn btn-default navbar-btn" id="misOrdenes" 
+                            data-toggle="dropdown" role="button">Mis ordenes 
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-cart" role="menu">
+                        <li role="presentation" class="dropdown-header">
+                            <span>Orden 1</span>
+                        </li>
+                        <li>
+                            <span class="item">
+                                <span class="item-left">Comida 1</span>
+                                <span class="item-left">
+                                    <span class="item-info">
+                                        <span>Deli</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    En Preparacion
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="item">
+                                <span class="item-left">Bebida 1</span>
+                                <span class="item-left">
+                                    <span class="item-info">
+                                        <span>Deli</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    Listo
+                                </span>
+                            </span>
+                        </li>
+                        <li class="divider"></li>
+                        <li role="presentation" class="dropdown-header">
+                            <span>Orden 2</span>
+                        </li>
+                        <li>
+                            <span class="item">
+                                <span class="item-left">Comida 3</span>
+                                <span class="item-left">
+                                    <span class="item-info">
+                                        <span>Deli</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    En Preparacion
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="item">
+                                <span class="item-left">Dulce 4</span>
+                                <span class="item-left">
+                                    <span class="item-info">
+                                        <span>Deli</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    Listo
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <button class="dropdown-toggle btn btn-default navbar-btn" data-toggle="dropdown" role="button"> 
+                        <span class="glyphicon glyphicon-shopping-cart"></span> 2 <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-cart" role="menu">
+                        <li>
+                            <span class="item">
+                                <span class="item-left">
+                                    <img src="http://lorempixel.com/50/50/" alt="" />
+                                    <span class="item-info">
+                                        <span>Platillo 1</span>
+                                        <span>$19.50</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    <button class="btn btn-xs btn-danger pull-right">x</button>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="item">
+                                <span class="item-left">
+                                    <img src="http://lorempixel.com/50/50/" alt="" />
+                                    <span class="item-info">
+                                        <span>Bebida 1</span>
+                                        <span>$13.00</span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    <button class="btn btn-xs btn-danger pull-right">x</button>
+                                </span>
+                            </span>
+                        </li>
+                        <li class="divider"></li>
+                        <li role="presentation" class="dropdown-header">Total: $32.50</li>
+                        <li class="divider"></li>
+                        <li><a class="text-center" href="">Confirmar Orden</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+        <div style="clear:both;"></div>
+        <div id="myCarousel" class="carousel slide" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"><img alt="" src="imagenes/logo1.jpg"></li>
+                <li data-target="#myCarousel" data-slide-to="1"><img alt="" src="imagenes/logo2.jpg"></li>
+                <li data-target="#myCarousel" data-slide-to="2"><img alt="" src="imagenes/logo3.jpg"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="fondo" id="uno"></div>
+                    <div class="carousel-caption">
+                        <h2>Negocio 1</h2>
+                        <h3>Menú</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="fondo" id="dos"></div>
+                    <div class="carousel-caption">
+                        <h2>Negocio 2</h2>
+                        <h3>Menú</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="fondo" id="tres"></div>
+                    <div class="carousel-caption">
+                        <h2>Negocio 3</h2>
+                        <h3>Menú</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="icon-next"></span>
+            </a>
+        </div>
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
