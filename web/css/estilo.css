@@ -10,108 +10,66 @@ and open the template in the editor.
 html, body {
     height: 100%;   
 }
-
-.barra {
-    z-index: 99;
-    background-color:#599bb3;
-    height: 7%;
-    width: 100%;
-    text-align: left;
-    text-indent: inherit;
-    color: black;
-    font-weight: bold;
-    padding-left: 10px;
-    padding-right: 30px;
+body {
+  min-height: 2000px;
+  padding-top: 70px;
 }
-
-.barra a{
-    color: black;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.der {
-    float: right;
-}
-
 .carousel {
-    height: 93%;
+    padding-top: 10px;
+    overflow: hidden;
     width: 100%;
+    height: 130%;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
     background-image:url('../imagenes/fondo1.jpg');
+    background-attachment: fixed;
 }
-
 .item, .active {
     height: 100%;
+    overflow: hidden;
+    width: 80%;
 }
 
 .carousel-inner {
     height: 100%;
 }
-
-/*.fondo {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-}*/
-
-/*#uno {
-    background-image:url('../imagenes/fondo1.jpg');
-    background: transparent;
-}
-
-#dos {
-    background-image:url('../imagenes/fondo2.jpg');
-    background: transparent;
-}
-
-#tres {
-    background-image:url('../imagenes/fondo3.jpg');
-    background: transparent;
-}*/
-
-.carousel-caption {
-    height: 95%;
-    -moz-box-shadow: 0px 10px 14px -7px #3e7327;
-    -webkit-box-shadow: 0px 10px 14px -7px #3e7327;
-    box-shadow: 0px 10px 14px -7px #3e7327;
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
-    background:-moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
-    background:-webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
-    background:-o-linear-gradient(top, #77b55a 5%, #72b352 100%);
-    background:-ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
-    background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
-    background-color:#77b55a;
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    border-radius:4px;
-    border:1px solid #4b8f29;
+.carousel-caption { 
+    overflow: hidden;
+    top: 5%;
+    margin-top: 35px;
+    padding-bottom: 80px;
+    padding-right: 0px;
+    width: 80%;
+    height: 150%;
+    /*    -moz-box-shadow: 0px 10px 14px -7px #3e7327;
+        -webkit-box-shadow: 0px 10px 14px -7px #3e7327;
+        box-shadow: 0px 10px 14px -7px #3e7327;
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+        background:-moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
+        background:-webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
+        background:-o-linear-gradient(top, #77b55a 5%, #72b352 100%);
+        background:-ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
+        background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
+        background-color:#77b55a;
+        -moz-border-radius:4px;
+        -webkit-border-radius:4px;
+        border-radius:4px;
+        border:1px solid #4b8f29;*/
     color:#ffffff;
     font-family:Arial;
 }
-
 .carousel-indicators {
     margin-left: -170px;
     background-color: transparent;
     padding: 10px;
     display: table;
     width: auto;
+    top: 0%;
 }
-
 .carousel-indicators li {
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -119,7 +77,6 @@ html, body {
     height: auto;
     width: auto;
 }
-
 .carousel-indicators li img {
     display: block;
     opacity: 0.5;
@@ -132,7 +89,10 @@ html, body {
     position:relative;
     bottom: 5px;
 }
-
+.carousel-control {
+    background-image: none;
+    width: 5%;
+}
 ul.dropdown-cart{
     min-width:275px;
 }
@@ -152,7 +112,6 @@ ul.dropdown-cart li .item:after{
     clear: both;
     height: 0;
 }
-
 ul.dropdown-cart li .item-left{
     float:left;
 }
@@ -171,4 +130,66 @@ ul.dropdown-cart li .item-right{
 }
 ul.dropdown-cart li .item-right button{
     margin-top:14px;
+}
+.menu {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    background-color: #8B4D32;
+    border-radius: 5px;
+    padding-left: 0;
+    height: auto;
+}
+.menu ul {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.articulo {
+    margin-right: 0px;
+    margin-left: 15px;
+    background-color: #0C9090;
+    border-radius: 5px;
+    overflow: auto;
+}
+.imagenArticulo {
+    float: left;
+    margin-bottom: 10px;
+}
+.imagenArticulo img {
+    max-width:100%;
+    max-height:100%;
+}
+.detallesArticulo {
+    float: right;
+    padding: 3px;
+    text-align: left;
+}
+.detallesArticulo input {
+    color: black;
+    width: 50px;
+}
+.detallesArticulo button {
+    float: right;
+}
+section{
+    height: 100%;
+}
+.comentariosClientes  {
+    text-align: left;
+}
+.comentarios ul {
+    list-style: none;
+}
+form {
+    margin-bottom: 15px;  
+}
+textArea, select {
+    resize: none;   
+    color: black;
+}
+.footer{
+    z-index: 999;
+    margin-top: 50px;
 }

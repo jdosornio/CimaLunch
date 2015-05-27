@@ -12,7 +12,7 @@
         <link href="css/estilo.css" rel="stylesheet">
     </head>
     <body>
-        <header class="barra">          
+        <header class="barra col-xs-12 col-sm-12 col-md-12 col-lg-12">          
             <p class="navbar-text">Bienvenido Usuario!</p>
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
@@ -124,43 +124,147 @@
             </ul>
         </header>
         <div style="clear:both;"></div>
-        <div id="myCarousel" class="carousel slide" data-interval="false">
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"><img alt="" src="imagenes/logo1.jpg"></li>
-                <li data-target="#myCarousel" data-slide-to="1"><img alt="" src="imagenes/logo2.jpg"></li>
-                <li data-target="#myCarousel" data-slide-to="2"><img alt="" src="imagenes/logo3.jpg"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="fondo" id="uno"></div>
-                    <div class="carousel-caption">
-                        <h2>Negocio 1</h2>
-                        <h3>Menú</h3>
+        <section>
+            <div id="myCarousel" class="carousel slide" data-interval="false">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"><img alt="" src="imagenes/logo1.jpg"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"><img alt="" src="imagenes/logo2.jpg"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"><img alt="" src="imagenes/logo3.jpg"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="fondo" id="uno"></div>
+                        <div class="carousel-caption">
+                            <div class="menu col-sm-11 col-md-3 col-lg-2">
+                                <h2>Deli</h2>
+                                <img src="imagenes/logo1.jpg">
+                                <h3>Menú</h3>
+                                <ul>
+                                    Platillos
+                                    <li><a>Platillo 1</a></li>
+                                    <li><a>Platillo 2</a></li>
+                                    <li><a>Platillo 3</a></li>
+                                </ul>
+                                <ul>
+                                    Bebidas
+                                    <li><a>Bebida 1</a></li>
+                                    <li><a>Bebida 2</a></li>
+                                    <li><a>Bebida 3</a></li>
+                                </ul>
+                                <ul>
+                                    Dulces
+                                    <li><a>Dulce 1</a></li>
+                                    <li><a>Dulce 2</a></li>
+                                    <li><a>Dulce 3</a></li>
+                                </ul>
+                            </div>
+                            <div class="articulo col-sm-11 col-md-7 col-lg-9">
+                                <h3>Platillo 1</h3>
+                                <div class="imagenArticulo col-sm-12 col-md-6 col-lg-6"><img src="imagenes/platillo1.jpg"></div>
+                                <div class="detallesArticulo col-sm-12 col-md-6 col-lg-6">
+                                    <p>Descripción: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <label for="calificacion">Opinion de los clientes:</label>
+                                    <input type="text" value="4/5" readonly="readonly">
+                                    <br>
+                                    <label for="precio">Precio:</label>
+                                    <input type="text" value="$35.00" readonly="readonly">
+                                    <br>
+                                    <label for="tiempo">Tiempo de preparación:</label>
+                                    <input type="text" value="15" readonly="readonly">
+                                    <span>minuto(s).</span>
+                                    <br>
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input type="number" max="99" min="1" value="1">
+                                    <br>
+                                    <button class="btn btn-sm btn-primary">Añadir al carrito</button>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="comentarios">
+                                    <div class="comentariosClientes">
+                                        Comentarios de otros clientes:
+                                        <br><br>
+                                        <ul>
+                                            <li>
+                                                <span>Nombre del cliente.</span>
+                                                <span>Calificación: 5/5</span>
+                                                <br>
+                                                <span>Fecha del comentario</span>
+                                                <br>
+                                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</span>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <span>Nombre del cliente.</span>
+                                                <span>Calificación: 5/5</span>
+                                                <br>
+                                                <span>Fecha del comentario</span>
+                                                <br>
+                                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</span>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <span>Nombre del cliente.</span>
+                                                <span>Calificación: 5/5</span>
+                                                <br>
+                                                <span>Fecha del comentario</span>
+                                                <br>
+                                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <form>
+                                        <label for="comentario">Dejanos tu comentario:</label>
+                                        <br>
+                                        <label for="calificacion">Calificación:</label>
+                                        <select>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                        <br><br>
+                                        <textarea name="comentario" form="usrform" rows="3" cols="30"></textarea>
+                                        <br><br>
+                                        <button class="btn btn-sm btn-primary">Enviar</button>
+                                    </form>             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="fondo" id="dos"></div>
+                        <div class="carousel-caption">
+                            <h2>Negocio 2</h2>
+                            <h3>Menú</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="fondo" id="tres"></div>
+                        <div class="carousel-caption">
+                            <h2>Negocio 3</h2>
+                            <h3>Menú</h3>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="footer">
+                        <span>@Fernando Avendaño</span>                      
                     </div>
                 </div>
-                <div class="item">
-                    <div class="fondo" id="dos"></div>
-                    <div class="carousel-caption">
-                        <h2>Negocio 2</h2>
-                        <h3>Menú</h3>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="fondo" id="tres"></div>
-                    <div class="carousel-caption">
-                        <h2>Negocio 3</h2>
-                        <h3>Menú</h3>
-                    </div>
-                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
             </div>
-            <!-- Controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="icon-prev"></span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="icon-next"></span>
-            </a>
-        </div>
+        </section>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
