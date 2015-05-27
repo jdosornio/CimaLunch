@@ -11,6 +11,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/navbar.css" rel="stylesheet">
+        <link href="css/estilo_1.css" rel="stylesheet">
     </head>
 
     <body>
@@ -92,19 +93,58 @@
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
             </nav>
-            
-            <section>
-                <h2>Negocios</h2>
-                <div>
-                    <button>
-                        Deli
-                    </button>
-                </div>
-            </section>
-            
+
+            <aside class="negocios col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <ul>
+                    <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
+                            <span class="glyphicon glyphicon-lock">Negocio</span> <span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-cart" role="menu">
+                            <li><img src="imagenes/logo1.jpg"><a href="#">Deli</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Javis</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
+                            <span class="glyphicon glyphicon-glass">Categoria</span> <span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-cart" role="menu">
+                            <li role="presentation" class="dropdown-header">
+                                <span>Orden 2</span>
+                            </li>
+                            <li><a href="#">Platillo 1 (Deli) </a></li>
+                            <li><a href="#">Bebida 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
+                            <li class="divider"></li>
+                            <li role="presentation" class="dropdown-header">
+                                <span>Orden 1</span>
+                            </li>
+                            <li><a href="#">Platillo 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
+                            <li><a href="#">Bebida 1 (Javis) <span class="glyphicon glyphicon-ok"></span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
+                            <span class="glyphicon glyphicon-glass">Producto</span> <span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-cart" role="menu">
+                            <li role="presentation" class="dropdown-header">
+                                <span>Orden 2</span>
+                            </li>
+                            <li><a href="#">Platillo 1 (Deli) </a></li>
+                            <li><a href="#">Bebida 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
+                            <li class="divider"></li>
+                            <li role="presentation" class="dropdown-header">
+                                <span>Orden 1</span>
+                            </li>
+                            <li><a href="#">Platillo 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
+                            <li><a href="#">Bebida 1 (Javis) <span class="glyphicon glyphicon-ok"></span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+
             <!-- Main component for a primary marketing message or call to action -->
-            <div class="jumbotron">
-                <h1>Navbar example</h1>
+            <div class="producto col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <h1>Producto</h1>
                 <p>This example is a quick exercise to illustrate how the 
                     default, static navbar and fixed to top navbar work. It includes the 
                     responsive CSS and HTML, so it also adapts to your viewport and device.</p>
