@@ -7,11 +7,23 @@ and open the template in the editor.
     Created on : May 27, 2015, 10:49:28 AM
     Author     : FernandoEnrique
 */
+body {
+    background-color: #D5D5D4;
+    background-attachment: fixed;
+    background-size: cover;    
+}
+
 .negocios {
+    text-align: center;
     border-style: solid;
-    border-width: 5px;
+    border-width: 0.5px;
+    border-color: #C1C1C1;
     display: inline-block;
     margin-top: 10px; 
+    border-radius: 5px;
+    background-color: #F3F3F3;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .negocios ul {
@@ -20,10 +32,14 @@ and open the template in the editor.
 
 .producto {
     border-style: solid;
-    border-width: 5px;
+    border-width: 0.5px;
+    border-color: #C1C1C1;
     margin-top: 10px;
     padding-bottom: 10px;
     text-align: center;
+    border-radius: 7px;
+    background-color: #F3F3F3;
+    float: right;
 }
 
 .imagenArticulo {
@@ -41,6 +57,12 @@ and open the template in the editor.
 .detallesArticulo {
     border-style: solid;
     border-width: 5px;
+    text-align: left;
+}
+
+.detallesArticulo input {
+    width: 50px;
+    text-align: center;
 }
 
 .comentarios {
@@ -59,4 +81,17 @@ form {
     margin-top: 10px;
     border-style: solid;
     border-width: 5px;
+}
+
+form textarea {
+    resize: none;   
+    color: black;
+}
+
+footer {
+    border-style: solid;
+    border-width: 5px;
+    text-align: center;
+    margin-top: 15px;
+    border-radius: 7px;
 }
