@@ -9,26 +9,32 @@ socket.onmessage = onMessage;
 
 function onMessage(event) {
     var response = event.data;
-    
-    if(response.indexOf("loginOk") !== -1) {
+
+    if (response.indexOf("loginOk") !== -1) {
         //Show new page... send user to http session
-        
-        //Get usuario
+
+        //Get usuario in 1 and tipo in 2
         var usuario = response.split("/");
-        
+
         var sessionData = {
             action: "save",
-            attr: "user",
-            value: usuario[1]
+            attrs: JSON.stringify(["usuario", "tipo"]),
+            values: JSON.stringify([usuario[1], usuario[2]])
         };
-        
+
         //Send data to http session
-        $.post("SessionServlet", sessionData, function() {
-            //Once saved change to the next page...
-            window.location = "index.html";
+        $.post("SessionServlet", sessionData, function () {
+            //Once saved depending on the type go to the right page...
+            
+            if(usuario[2] === "ALUMNO") {
+                location.replace("principalAlumno.jsp");
+            }
+            else if(usuario[2] === "ADMIN_LOCAL") {
+                //window.location.replace = "principalAdmin.jsp"
+            }
         });
     }
-    else if(response === "loginFail") {
+    else if (response === "loginFail") {
         //Show error message
         alert("Usuario o contraseña incorrectos");
     }
