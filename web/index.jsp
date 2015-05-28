@@ -1,5 +1,5 @@
 <%-- 
-    Document   : loginTest
+    Document   : index
     Created on : 27/05/2015, 10:56:22 AM
     Author     : Jesus Donaldo
 --%>
@@ -19,6 +19,20 @@
         <link href="css/estiloLogin.css" rel="stylesheet">
     </head>
     <body>
+        
+        <!-- Redirect if already logged-->
+        <%
+            if (session.getAttribute("usuario") != null) {
+                
+                if(session.getAttribute("tipo").equals("ALUMNO")) {
+                    response.sendRedirect("principalAlumno.jsp");
+                }
+                else if(session.getAttribute("tipo").equals("ADMIN_LOCAL")) {
+                    //response.sendRedirect("principalAdmin.jsp");
+                }
+            }
+        %>
+        
         <div class="container">
 
       <form id="loginForm" class="form-signin">
@@ -31,12 +45,13 @@
         <input id="inputPassword" class="form-control" placeholder="Contrseña" required="" type="password">
         <div class="checkbox">
         </div><br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+        <button id="signIn" class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
       </form>
 
     </div> <!-- /container -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/checkCookies.js"></script>
         <script src="js/login.js"></script>
     </body>
 </html>

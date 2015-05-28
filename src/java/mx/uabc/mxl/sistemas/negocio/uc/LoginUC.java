@@ -28,8 +28,9 @@ public class LoginUC {
         //User exists, now to check if the pass is correct
         if(user != null) {
             if(user.getPass().equals(pass)) {
-                //If ok return usuario and ok message
-                response = LOGIN_OK + "/" + usuario;
+                //If ok return usuario and tipo and ok message
+                response = LOGIN_OK + "/" + usuario + "/" + 
+                        user.getTipo().toString();
             }
         }
         
