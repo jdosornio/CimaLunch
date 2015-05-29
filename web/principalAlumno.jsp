@@ -130,19 +130,19 @@
                         <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-categorias" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-glass"> Categoria</span> <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-cart" role="menu">
-                            <li><a href="#" onclick="activarProductos('comida')"><img src="imagenes/comida.jpg"> Platillos</a></li>
+                            <li><a href="#" onclick="activarProductos('Comida')"><img src="imagenes/comida.jpg"> Platillos</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('bebida')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
+                            <li><a href="#" onclick="activarProductos('Bebida')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('dulce')"><img src="imagenes/botana.png"> Botanas</a></li>
+                            <li><a href="#" onclick="activarProductos('Dulce')"><img src="imagenes/botana.png"> Botanas</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" onclick="activarProductos('Otro')"><img src="imagenes/botana.png"> Otro</a></li>
                         </ul>
                     </li>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
                         <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-productos" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-cutlery"> Producto</span> <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-cart" role="menu">
-                            <li><a href="#"><span class="item-info">Platillo 1 $35.00</span></a></li>
-                            <li><a href="#"><span class="item-info">Platillo 2 $29.00</span></a></li>
+                        <ul class="dropdown-menu dropdown-cart" role="menu" id="productosList">
                         </ul>
                     </li>
                 </ul>
@@ -151,21 +151,20 @@
             <!-- Div del producto -->
             <div class="producto col-xs-12 col-sm-12 col-md-7 col-lg-8">
                 <div class="direccion col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <img src="imagenes/logo1.jpg">
-                    <span>Comida</span>
+                    <img id="logoDireccion">
+                    <span id="categoriaDireccion"></span>
                 </div>
-                <h2>Platillo 1</h2>
+                <h2 id="nombreProducto"></h2>
                 <div class="imagenArticulo col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <img src="imagenes/platillo1.jpg">
                 </div>
                 <div class="detallesArticulo col-sm-12 col-md-6 col-lg-6">
-                    <p><strong>Descripción:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p  id="descripcionProducto"></p>
                     <label for="calificacion">Opinion de los clientes:</label>
-                    <input type="text" value="4/5" readonly="readonly">
+                    <input type="text" id="calificacion" readonly="readonly">
                     <br><br>
                     <label for="precio">Precio:</label>
-                    <input type="text" value="$35.00" readonly="readonly">
+                    <input type="text" id="precio" readonly="readonly">
                     <br><br>
                     <label for="tiempo">Tiempo de preparación:</label>
                     <input type="text" value="15" readonly="readonly">

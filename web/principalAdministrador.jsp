@@ -23,15 +23,7 @@
 
     <body>
 
-        <%
-            String nombreUsuario = null;
-            if (session.getAttribute("usuario") == null) {
-                //go to index
-                response.sendRedirect("index.jsp");
-            } else {
-                nombreUsuario = String.valueOf(session.getAttribute("usuario"));
-            }
-        %>
+
 
         <div class="container">
             <!-- Static navbar -->
@@ -48,7 +40,7 @@
                     </div>
                     <div style="height: 0.8px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a>Bienvenido <%="<strong>" + nombreUsuario + "</strong>"%>!</a></li>
+                            <li><a>Bienvenido !</a></li>
                             <li><a href="misProductos.jsp"> Mis Productos </a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

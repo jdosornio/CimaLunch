@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -12,6 +12,7 @@ var platillos;
 
 var negocioSeleccionado;
 var categoriaSeleccionada;
+var productoSeleccionado;
 
 socket.onmessage = onMessage;
 socket.onopen = onOpen;
@@ -26,7 +27,7 @@ function onMessage(event) {
         case "allNegocios":
             showNegocios(response[1]);
             break;
-        
+
         case "platillosByCategoria":
             showPlatillos(response[1]);
             break;
@@ -45,7 +46,8 @@ function showNegocios(responseData) {
         //Show in html
         //to display an image from bytes you need to use data:image/png;base64, and
         //the byte array as a string
-        $('#negociosList').append('<li><a href="#" onclick="activarCategorias(\'' + negociosList[i].id + '\')"><img src="data:image/png;base64,' +
+        var indice = i;
+        $('#negociosList').append('<li><a href="#" onclick="activarCategorias(\'' + indice + '\')"><img src="data:image/png;base64,' +
                 negociosList[i].imagen + '"> ' + negociosList[i].nombre + '</a></li>');
 
         //Apend delimiter if not last element
@@ -79,13 +81,20 @@ function showPlatillos(responseData) {
     var platillosList = JSON.parse(responseData);
 
     platillos = platillosList;
-    
+
     //test platillo info
     alert("Id: " + platillosList[0].id + "\nNombre: " + platillosList[0].nombre +
-            "\nDescripción: " + platillosList[0].descripcion + "\nCategoria: " + 
+            "\nDescripción: " + platillosList[0].descripcion + "\nCategoria: " +
             platillosList[0].categoria + "\nPrecio: " + platillosList[0].precio +
             "\nTiempo de Preparación: " + platillosList[0].tiempoPreparacion);
-    
+
+    $('#productosList').html("");
+    for (var i = 0; i < platillosList.length; i++) {
+        var indice = i;
+        $('#productosList').append('<li><a href="#" onclick="mostrarProducto(\'' + indice + '\')"><span class="item-info">'
+                + platillosList[i].nombre + ' $' + platillosList[i].precio + '</span></a></li>');
+    }
+
 }
 //Get the data needed as fast as the socket is open
 function onOpen() {
@@ -119,9 +128,10 @@ $(document).ready(function () {
     });
 });
 
-function activarCategorias(idNegocio) {
+function activarCategorias(indiceNegocio) {
     $('#boton-categorias').removeClass('disabled');
-    negocioSeleccionado = idNegocio;
+    negocioSeleccionado = indiceNegocio;
+    document.getElementById('logoDireccion').setAttribute('src', 'data:image/png;base64,' + negocios[negocioSeleccionado].imagen);
 }
 
 function activarProductos(nombreCategoria) {
@@ -131,9 +141,25 @@ function activarProductos(nombreCategoria) {
     //mostrar los productos en la lista
     var requestData = {
         action: "getPlatillosByCategoria",
-        idNegocio: negocioSeleccionado,
+        idNegocio: negocios[negocioSeleccionado].id,
         categoria: categoriaSeleccionada
     };
 
     socket.send(JSON.stringify(requestData));
+
+
+    $('#categoriaDireccion').html("");
+    $('#categoriaDireccion').append(categoriaSeleccionada);
+}
+
+function mostrarProducto(indiceProducto) {
+    productoSeleccionado = indiceProducto;
+    $('#nombreProducto').html("");
+    $('#nombreProducto').append(platillos[productoSeleccionado].nombre);
+    $('#descripcionProducto').html("");
+    $('#descripcionProducto').append(' <strong>Descripción: </strong>' + platillos[productoSeleccionado].descripcion);
+    $('#calificacion').html("");
+    $('#calificacion').append("");
+    $('#precio').html("");
+    document.getElementById("precio").setAttribute('value', '$' + platillos[productoSeleccionado].precio);
 }
