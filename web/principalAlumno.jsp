@@ -132,9 +132,9 @@
                         <ul class="dropdown-menu dropdown-cart" role="menu">
                             <li><a href="#" onclick="activarProductos('comida')"><img src="imagenes/comida.jpg"> Platillos</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('bebidas')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
+                            <li><a href="#" onclick="activarProductos('bebida')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('dulces')"><img src="imagenes/botana.png"> Botanas</a></li>
+                            <li><a href="#" onclick="activarProductos('dulce')"><img src="imagenes/botana.png"> Botanas</a></li>
                         </ul>
                     </li>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">

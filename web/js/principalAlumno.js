@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
+//array for storing platillos
+var platillos;
+
 var negocioSeleccionado;
 var categoriaSeleccionada;
 
@@ -22,6 +25,10 @@ function onMessage(event) {
         //Returned all negocios
         case "allNegocios":
             showNegocios(response[1]);
+            break;
+        
+        case "platillosByCategoria":
+            showPlatillos(response[1]);
             break;
     }
 
@@ -68,6 +75,18 @@ function showNegocios(responseData) {
     }
 }
 
+function showPlatillos(responseData) {
+    var platillosList = JSON.parse(responseData);
+
+    platillos = platillosList;
+    
+    //test platillo info
+    alert("Id: " + platillosList[0].id + "\nNombre: " + platillosList[0].nombre +
+            "\nDescripción: " + platillosList[0].descripcion + "\nCategoria: " + 
+            platillosList[0].categoria + "\nPrecio: " + platillosList[0].precio +
+            "\nTiempo de Preparación: " + platillosList[0].tiempoPreparacion);
+    
+}
 //Get the data needed as fast as the socket is open
 function onOpen() {
     //Send get all negocios request
@@ -100,15 +119,21 @@ $(document).ready(function () {
     });
 });
 
-function activarCategorias(nombreNegocio) {
+function activarCategorias(idNegocio) {
     $('#boton-categorias').removeClass('disabled');
-    negocioSeleccionado = nombreNegocio;
+    negocioSeleccionado = idNegocio;
 }
 
 function activarProductos(nombreCategoria) {
     $('#boton-productos').removeClass('disabled');
     categoriaSeleccionada = nombreCategoria;
-    alert(negocioSeleccionado + " " + categoriaSeleccionada); //Mensaje para mostrar que si se tiene el id y la categoria
-    
+
     //mostrar los productos en la lista
+    var requestData = {
+        action: "getPlatillosByCategoria",
+        idNegocio: negocioSeleccionado,
+        categoria: categoriaSeleccionada
+    };
+
+    socket.send(JSON.stringify(requestData));
 }

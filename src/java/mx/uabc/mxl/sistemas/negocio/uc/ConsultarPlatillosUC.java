@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import mx.uabc.mxl.sistemas.negocio.facade.FACADEServiceLocator;
 import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
+import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
+import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO.Categoria;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -24,6 +26,8 @@ import org.codehaus.jettison.json.JSONObject;
 public class ConsultarPlatillosUC {
 
     private final static String ALL_NEGOCIOS = "allNegocios";
+    private final static String PLATILLOS_BY_CATEGORIA = "platillosByCategoria";
+    
     private final static String DELIMITER = ":DELIM>";
 
     public String getAllNegocios() {
@@ -70,4 +74,48 @@ public class ConsultarPlatillosUC {
 
         return response;
     }
+    
+    public String getPlatillosByCategoria(int idNegocio, String categoria) {
+        String response = null;
+        
+        //Get platillos
+        NegocioDTO negocio = new NegocioDTO();
+        negocio.setId(idNegocio);
+        
+        List<PlatilloDTO> platillos = FACADEServiceLocator.getNegocioInstance()
+                .getPlatillosByCategoria(negocio, Categoria.valueOf(categoria));
+        
+        //If everything was ok
+        if (platillos != null && !platillos.isEmpty()) {
+            JSONArray jsonPlatillos = new JSONArray();
+
+            //Build json with the results
+            for (PlatilloDTO platillo : platillos) {
+                try {
+                    //Create a json object for each 
+                    JSONObject jsonPlatillo = new JSONObject();
+
+                    jsonPlatillo.put("id", platillo.getId());
+                    jsonPlatillo.put("nombre", platillo.getNombre());
+                    jsonPlatillo.put("descripcion", platillo.getDescripcion());
+                    jsonPlatillo.put("precio", platillo.getPrecio());
+                    jsonPlatillo.put("tiempoPreparacion", platillo.getTiempoPreparacion());
+                    jsonPlatillo.put("categoria", platillo.getCategoria().toString());
+
+                    jsonPlatillos.put(jsonPlatillo);
+                } catch (JSONException ex) {
+                    Logger.getLogger(ConsultarPlatillosUC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            //if no errors
+            if(jsonPlatillos.length() > 0) {
+                System.out.println(jsonPlatillos);
+                response = PLATILLOS_BY_CATEGORIA + DELIMITER + jsonPlatillos.toString();
+            }
+        }
+        
+        return response;
+    }
+    
 }

@@ -12,6 +12,7 @@ package mx.uabc.mxl.sistemas.negocio.facade;
 public class FACADEServiceLocator {
     private static BaseFACADE baseFACADE;
     private static UsuarioFACADE usuarioFACADE;
+    private static NegocioFACADE negocioFACADE;
     
     public static BaseFACADE getBaseInstance() {
         
@@ -30,4 +31,14 @@ public class FACADEServiceLocator {
         
         return usuarioFACADE;
     }
+    
+    public static NegocioFACADE getNegocioInstance() {
+        
+        if(negocioFACADE == null) {
+            negocioFACADE = new NegocioFACADE();
+        }
+        
+        return negocioFACADE;
+    }
+    
 }

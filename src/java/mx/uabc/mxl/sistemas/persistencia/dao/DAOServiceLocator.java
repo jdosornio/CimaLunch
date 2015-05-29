@@ -12,6 +12,7 @@ package mx.uabc.mxl.sistemas.persistencia.dao;
 public class DAOServiceLocator {
     private static BaseDAO baseDAO;
     private static UsuarioDAO usuarioDAO;
+    private static NegocioDAO negocioDAO;
     
     public static BaseDAO getBaseInstance() {
         
@@ -29,5 +30,14 @@ public class DAOServiceLocator {
         }
         
         return usuarioDAO;
+    }
+    
+    public static NegocioDAO getNegocioInstance() {
+        
+        if(negocioDAO == null) {
+            negocioDAO = new NegocioDAO();
+        }
+        
+        return negocioDAO;
     }
 }

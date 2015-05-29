@@ -35,6 +35,11 @@ public class WebSocketServer {
     private static final String PASS = "pass";
     
     private static final String GET_ALL_NEGOCIOS = "getAllNegocios";
+    private static final String GET_PLATILLOS_BY_CATEGORIA = 
+            "getPlatillosByCategoria";
+    
+    private static final String ID_NEGOCIO = "idNegocio";
+    private static final String CATEGORIA = "categoria";
     
     @Inject
     private SessionHandler sessionHandler;
@@ -84,6 +89,16 @@ public class WebSocketServer {
                     response = consultarPlatillosUC.getAllNegocios();
                     
                     //Send response
+                    if(response != null) {
+                        sessionHandler.sendToSession(session, response);
+                    }
+                    break;
+                
+                case GET_PLATILLOS_BY_CATEGORIA:
+                    response = consultarPlatillosUC.getPlatillosByCategoria(
+                            actionData.getInt(ID_NEGOCIO),
+                            actionData.getString(CATEGORIA).toUpperCase());
+                    
                     if(response != null) {
                         sessionHandler.sendToSession(session, response);
                     }

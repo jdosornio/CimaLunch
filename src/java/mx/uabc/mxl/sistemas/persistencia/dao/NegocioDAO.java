@@ -5,7 +5,12 @@
  */
 package mx.uabc.mxl.sistemas.persistencia.dao;
 
+import java.util.List;
 import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
+import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
+import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO.Categoria;
+import mx.uabc.mxl.sistemas.persistencia.util.HibernateUtil;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -13,5 +18,31 @@ import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
  */
 public class NegocioDAO extends BaseDAO<NegocioDTO> {
     
-    
+    public List<PlatilloDTO> getPlatillosByCategoria(NegocioDTO negocio,
+            Categoria categoria) {
+        
+        List<PlatilloDTO> platillos;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            //Get all platillos of a negocio by categoria....
+            platillos = HibernateUtil.getSession()
+                    .createCriteria(PlatilloDTO.class)
+                    .add(Restrictions.and(
+                            Restrictions.eq("negocio", negocio),
+                            Restrictions.eq("categoria", categoria)
+                        )).list();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            platillos = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return platillos;
+    }
+
 }
