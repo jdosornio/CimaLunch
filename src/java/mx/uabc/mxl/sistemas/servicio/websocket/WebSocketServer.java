@@ -15,6 +15,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import mx.uabc.mxl.sistemas.negocio.uc.ConsultarPlatillosUC;
 import mx.uabc.mxl.sistemas.negocio.uc.LoginUC;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -33,10 +34,14 @@ public class WebSocketServer {
     private static final String USER = "user";
     private static final String PASS = "pass";
     
+    private static final String GET_ALL_NEGOCIOS = "getAllNegocios";
+    
     @Inject
     private SessionHandler sessionHandler;
     @Inject
     private LoginUC loginUC;
+    @Inject
+    private ConsultarPlatillosUC consultarPlatillosUC;
     
     @OnOpen
     public void open(Session session) {
@@ -70,6 +75,13 @@ public class WebSocketServer {
                 case LOGIN:
                     String response = loginUC.signIn(actionData.getString(USER),
                             actionData.getString(PASS));
+                    
+                    //Send response
+                    sessionHandler.sendToSession(session, response);
+                    break;
+                
+                case GET_ALL_NEGOCIOS:
+                    response = consultarPlatillosUC.getAllNegocios();
                     
                     //Send response
                     sessionHandler.sendToSession(session, response);

@@ -12,7 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,7 +71,7 @@ public class NegocioDTO implements Serializable {
 
     @Column( name = "imagen", nullable = false )
     @Lob
-    @Basic(fetch = LAZY)
+    @Basic(fetch = EAGER)
     /**
      * @return the imagen
      */
