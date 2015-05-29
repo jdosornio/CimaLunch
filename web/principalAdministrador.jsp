@@ -59,50 +59,65 @@
             </nav>
             <!--/ Ordenes activas -->
             <section class="ordenes col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3">
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                    </span>
+                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
+                    <h4>Orden 1</h4>
+                    <span><strong>Hecha por:</strong> Luis Miguel a las 13:45:12</span>
+                    <ul>
+                        <li class="producto">
+                            <span>Platillo 1 X 2</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </li>
+                        <div style="clear: both;"></div>
+                        <li class="producto">
+                            <span>Bebida 2</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </li>
+                        <div style="clear: both;"></div>
+                        <li class="producto">
+                            <span>Dulce 1 X 3</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <h4 id="totalOrden">Total: $45.00</h4>
                 </article>
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3">
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                    </span>
-                </article>
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3">
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                    </span>
-                </article>
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3">
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                    </span>
+                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
+                    <h4>Orden 2</h4>
+                    <span><strong>Hecha por:</strong> Juan Gabriel a las 13:53:44</span>
+                    <ul>
+                        <li class="producto">
+                            <span>Platillo 1 X 2</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </li>
+                        <div style="clear: both;"></div>
+                        <li class="producto">
+                            <span>Bebida 2</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </li>
+                        <div style="clear: both;"></div>
+                        <li class="producto">
+                            <span>Dulce 1 X 3</span>
+                            <button class="btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <h4 id="totalOrden">Total: $45.00</h4>
                 </article>
             </section>
 
         </div>
 
+        <script src="js/principalAdministrador.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
 
