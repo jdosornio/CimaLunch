@@ -104,7 +104,7 @@
                                     <li><a class="text-center" href="">Confirmar Orden</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Cerrar Sesión</a></li>
+                            <li><a href="#" onclick="signOut()">Cerrar Sesión</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
@@ -241,6 +241,8 @@
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
+        <script src="js/principalAlumno.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
     </body>
 </html>
