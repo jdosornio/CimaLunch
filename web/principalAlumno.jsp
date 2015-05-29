@@ -145,8 +145,12 @@
                 </ul>
             </aside>
 
-            <!-- Main component for a primary marketing message or call to action -->
+            <!-- Div del producto -->
             <div class="producto col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                <div class="direccion col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <img src="imagenes/logo1.jpg">
+                    <span>Comida</span>
+                </div>
                 <h2>Platillo 1</h2>
                 <div class="imagenArticulo col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <img src="imagenes/platillo1.jpg">
@@ -226,7 +230,11 @@
             </div>
 
             <footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @CimaLunch
+                <span>@CimaLunch</span>
+                <br>
+                Fernando Enrique Avendaño Hernández
+                <br>
+                Jesús Donaldo Osornio Hernández
             </footer>
 
         </div> <!-- /container -->

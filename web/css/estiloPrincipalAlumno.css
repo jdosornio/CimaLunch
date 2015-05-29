@@ -105,9 +105,23 @@ body {
     float: right;
 }
 
+.direccion {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    display: inline-block;
+}
+
+.direccion span {
+    margin-left: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .imagenArticulo {
     text-align: center;
     margin-bottom: 10px;
+    z-index: 1;
 }
 
 .imagenArticulo img {
@@ -162,4 +176,9 @@ footer {
     margin-top: 15px;
     border-radius: 7px;
     background-color: #E1B55C;
+}
+
+footer span{
+    font-weight: bold;
+    color: black;
 }
