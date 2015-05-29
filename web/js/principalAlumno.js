@@ -5,17 +5,65 @@
  */
 
 var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+//array for storing the negocios
+var negocios;
+
 socket.onmessage = onMessage;
 socket.onopen = onOpen;
 
 function onMessage(event) {
-    var response = JSON.parse(event.data);
-    
-    //Remove all the innecessary data
-    var list = response.list[0];
-    
-    //Get the true data list
-    var negociosList = list[Object.keys(list)[0]];
+    //Get the data type and the data
+    var response = event.data.split(":DELIM>");
+
+    //Get the data type
+    switch (response[0]) {
+        //Returned all negocios
+        case "allNegocios":
+            showNegocios(response[1]);
+            break;
+    }
+
+}
+
+function showNegocios(responseData) {
+    //Get data array
+    var negociosList = JSON.parse(responseData);
+
+    negocios = negociosList;
+
+    //show data in page
+    for (var i = 0; i < negociosList.length; i++) {
+        //Show in html
+        //to display an image from bytes you need to use data:image/png;base64, and
+        //the byte array as a string
+        $('#negociosList').append('<li><a href="#"><img src="data:image/png;base64,' + 
+                negociosList[i].imagen + '"> ' + negociosList[i].nombre + '</a></li>');
+        
+        //Apend delimiter if not last element
+        if(i + 1 !== negociosList.length) {
+            $('#negociosList').append('<li class="divider"></li>');
+        }
+        
+//        alert("Id: " + negociosList[i].id + "\nNombre: " + negociosList[i].nombre +
+//                "\nSlogan: " + negociosList[i].slogan);
+
+        //Show negocio image
+//        loadImage(
+//                negociosList[i].imagen,
+//                function (img) {
+//                    //There was an error
+//                    if (img.type === "error") {
+//                        console.log("Error loading image ");
+//                    } else {
+//                        document.body.appendChild(img);
+//                    }
+//                }
+//        );
+
+//        var image = document.createElement('img');
+//        image.src = 'data:image/png;base64,' + negociosList[i].imagen;
+//        document.body.appendChild(image);
+    }
 }
 
 //Get the data needed as fast as the socket is open

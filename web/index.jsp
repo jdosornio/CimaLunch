@@ -6,7 +6,7 @@
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es" class="no-js">
     <head>
         <title>CimaLuch - Login</title>
         <meta charset="UTF-8">
@@ -17,6 +17,7 @@
         <meta name="author" content="">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/estiloLogin.css" rel="stylesheet">
+        <script src="js/modernizr-2.8.3.min"></script>
     </head>
     <body>
         
