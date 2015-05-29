@@ -1,0 +1,165 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 27, 2015, 10:49:28 AM
+    Author     : FernandoEnrique
+*/
+body {
+    background-image: url('../imagenes/fondoPrincipalAlumno.jpg');
+    background-attachment: fixed;
+    background-size: cover;    
+}
+
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    background-color: #E1B55C;
+    border-color: white;
+}
+
+.navbar-btn {
+    margin-left: 15px;
+}
+
+.dropdown-cart {
+    min-width:275px;
+}
+
+.dropdown-cart li .item {
+    display:block;
+    padding:3px 10px;
+    margin: 3px 0;
+}
+
+.dropdown-cart li .item:hover {
+    background-color:#f3f3f3;
+}
+
+.dropdown-cart li .item:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.dropdown-cart li .item-left {
+    float:left;
+}
+
+.dropdown-cart li .item-left img,
+.dropdown-cart li .item-left span.item-info {
+    float:left;
+}
+
+.dropdown-cart li .item-left span.item-info {
+    margin-left:10px;   
+}
+
+.dropdown-cart li .item-left span.item-info span {
+    display:block;
+}
+
+.dropdown-cart li .item-right {
+    float:right;
+}
+
+.dropdown-cart li .item-right button {
+    margin-top:14px;
+}
+
+.negocios {
+    text-align: center;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: white;
+    display: inline-block;
+    margin-top: 10px; 
+    border-radius: 5px;
+    background-color: #E1B55C;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.negocios ul {
+    list-style: none;
+}
+
+.producto {
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #C1C1C1;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    border-radius: 7px;
+    background-color: #F3F3F3;
+    float: right;
+}
+
+.imagenArticulo {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.imagenArticulo img {
+    max-width:100%;
+    max-height:100%;
+}
+
+.detallesArticulo {
+    text-align: left;
+    background-color: #D7D7D6;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #A2A09C;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.detallesArticulo input {
+    width: 50px;
+    text-align: center;
+}
+
+.comentarios {
+    text-align: left;
+    padding: 25px;
+    margin-top: 10px;
+}
+
+.comentarios .comentariosClientes ul {
+    list-style: none;
+}
+
+form {
+    margin-top: 10px;
+    background-color: #D7D7D6;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #A2A09C;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+form textarea {
+    resize: none;   
+    color: black;
+}
+
+footer {
+    text-align: center;
+    margin-top: 15px;
+    border-radius: 7px;
+    background-color: #E1B55C;
+}
