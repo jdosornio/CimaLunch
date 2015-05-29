@@ -57,8 +57,10 @@
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
             </nav>
+                            
             <!--/ Ordenes activas -->
             <section class="ordenes col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Mis Ordenes</h2>
                 <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
                     <h4>Orden 1</h4>
                     <span><strong>Hecha por:</strong> Luis Miguel a las 13:45:12</span>
