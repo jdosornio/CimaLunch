@@ -163,3 +163,8 @@ footer {
     border-radius: 7px;
     background-color: #E1B55C;
 }
+
+footer span{
+    font-weight: bold;
+    color: black;
+}

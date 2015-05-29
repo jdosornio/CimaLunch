@@ -28,7 +28,7 @@
                     response.sendRedirect("principalAlumno.jsp");
                 }
                 else if(session.getAttribute("tipo").equals("ADMIN_LOCAL")) {
-                    //response.sendRedirect("principalAdmin.jsp");
+                    response.sendRedirect("principalAdministrador.jsp");
                 }
             }
         %>

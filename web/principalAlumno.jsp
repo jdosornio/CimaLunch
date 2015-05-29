@@ -226,14 +226,17 @@
             </div>
 
             <footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @CimaLunch
+                <span>@CimaLunch</span>
+                <br>
+                Fernando Enrique Avendaño Hernández
+                <br>
+                Jesús Donaldo Osornio Hernández
             </footer>
 
         </div> <!-- /container -->
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
     </body>
 </html>

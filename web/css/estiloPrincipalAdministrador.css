@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 28, 2015, 9:28:21 PM
+    Author     : FernandoEnrique
+*/
+body {
+    background-image: url('../imagenes/fondoPrincipalAlumno.jpg');
+    background-attachment: fixed;
+    background-size: cover;  
+}
+
+.navbar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #E1B55C;
+    border-color: white;
+}
+
+.ordenes {
+    height: auto;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #C1C1C1;
+    background-color: #F3F3F3;
+    display: inline-block;
+}
+
+.orden {
+    background-color: #E1B55C;
+    border-color: #A2A09C;
+    border-radius: 5px;
+    border-style: solid;
+    margin: 25px;
+}
