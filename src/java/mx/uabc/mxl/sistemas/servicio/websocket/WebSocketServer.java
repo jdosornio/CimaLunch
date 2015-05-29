@@ -84,7 +84,9 @@ public class WebSocketServer {
                     response = consultarPlatillosUC.getAllNegocios();
                     
                     //Send response
-                    sessionHandler.sendToSession(session, response);
+                    if(response != null) {
+                        sessionHandler.sendToSession(session, response);
+                    }
                     break;
             }
         } catch (JSONException ex) {

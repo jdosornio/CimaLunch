@@ -6,7 +6,7 @@
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es" class="no-js"><head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +18,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/estiloPrincipalAlumno.css" rel="stylesheet">
+        <script src="js/modernizr-2.8.3.min"></script>
     </head>
 
     <body>
@@ -115,12 +116,14 @@
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
                         <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-lock"> Negocio</span> <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-cart" role="menu">
+                        <ul id="negociosList" class="dropdown-menu dropdown-cart" role="menu">
+                            <!--
                             <li><a href="#"><img src="imagenes/logo1.jpg"> Deli</a></li>
                             <li class="divider"></li>
                             <li><a href="#"><img src="imagenes/logo2.jpg"> Javis</a></li>
                             <li class="divider"></li>
                             <li><a href="#"><img src="imagenes/logo3.jpg"> Pizza Mia</a></li>
+                            -->
                         </ul>
                     </li>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
