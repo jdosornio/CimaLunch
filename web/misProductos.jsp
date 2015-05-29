@@ -60,8 +60,61 @@
 
             <section class="contenedor col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>Mis Productos</h2>
-                <div class="categoria col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
+                <button type="button" id="agregar" class="btn btn-md btn-primary" data-toggle="modal" data-target="#myModal">Agregar</button>
+                <!--/ Modal Agregar y Modificar -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Agregar un producto</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="agregarProducto">
+                                    <label for="categoria" class="sr-only">Categoria:</label>
+                                    <select class="selectCategoria">
+                                        <option>Comida</option>
+                                        <option>Bebida</option>
+                                        <option>Dulce</option>
+                                    </select>
+                                    <label for="nombre" class="sr-only control-label">Nombre:</label>
+                                    <input name="nombre" type="text" class="form-control" placeholder="Nombre" required="">
+                                    <label for="descripcion" class="sr-only">Descripcion:</label>
+                                    <textarea name="descripcion" form="usrform" rows="3" cols="30" placeholder="Descripción"></textarea>
+                                    <label for="precio" class="sr-only">Precio:</label>
+                                    <input name="precio" type="text" class="form-control" placeholder="Precio" required="">
+                                    <label for="tiempo" class="sr-only">Tiempo de preparación:</label>
+                                    <input name="tiempo" type="number" class="form-control" placeholder="Tiempo" required="" min="0" max="60" value="0">
+                                    <label for="imagen">File input</label>
+                                    <input type="file" id="imagen">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button class="btn btn-primary" type="submit">Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Modal Eliminar -->
+                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Eliminar un producto</h4>
+                            </div>
+                            <div class="modal-body">
+                                <span>Estas seguro de que deseas eliminar este producto?</span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="categoria col-xs-11 col-sm-11 col-md-3 col-lg-3">
                     <ul>
                         <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
                             <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
@@ -76,9 +129,44 @@
                         </li>
                     </ul>
                 </div>
-                <div class="productos col-xs-12 col-sm-12 col-md-7 col-lg-7">
-                    <table class="table table-hover">
-                        
+                <div class="productos col-xs-11 col-sm-11 col-md-8 col-lg-8">
+                    <table class="table table-hover table-striped table-responsive">
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Tiempo de preparacion</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Platillo 1</td>
+                            <td>Descripcion platillo 1</td>
+                            <td>$15.00</td>
+                            <td>17 minutos</td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Platillo 1</td>
+                            <td>Descripcion platillo 1</td>
+                            <td>$15.00</td>
+                            <td>17 minutos</td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Platillo 1</td>
+                            <td>Descripcion platillo 1</td>
+                            <td>$15.00</td>
+                            <td>17 minutos</td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
+                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
+                        </tr>
                     </table>
                 </div>
             </section>

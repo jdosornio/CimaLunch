@@ -56,3 +56,19 @@ body {
     padding-bottom: 7px;
     margin: 15px;
 }
+
+table {
+    text-align: center;
+}
+
+#agregar {
+    float: right;
+    margin-right: 50px;
+}
+.agregarProducto input, textarea {
+    width: 200px;
+    margin-bottom: 15px;
+}
+.selectCategoria {
+    margin-bottom: 15px;
+}
