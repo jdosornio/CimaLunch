@@ -114,7 +114,7 @@
             <aside class="negocios col-xs-12 col-sm-12 col-md-4 col-lg-3">
                 <ul>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
-                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg boton-negocios" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-lock"> Negocio</span> <span class="caret"></span></button>
                         <ul id="negociosList" class="dropdown-menu dropdown-cart" role="menu">
                             <!--
@@ -127,18 +127,18 @@
                         </ul>
                     </li>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
-                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" data-toggle="dropdown" role="button"> 
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-categorias" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-glass"> Categoria</span> <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-cart" role="menu">
-                            <li><a href="#"><img src="imagenes/comida.jpg"> Platillos</a></li>
+                            <li><a href="#" onclick="activarProductos('comida')"><img src="imagenes/comida.jpg"> Platillos</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
+                            <li><a href="#" onclick="activarProductos('bebidas')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><img src="imagenes/botana.png"> Botanas</a></li>
+                            <li><a href="#" onclick="activarProductos('dulces')"><img src="imagenes/botana.png"> Botanas</a></li>
                         </ul>
                     </li>
                     <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
-                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" data-toggle="dropdown" role="button"> 
+                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-productos" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-cutlery"> Producto</span> <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-cart" role="menu">
                             <li><a href="#"><span class="item-info">Platillo 1 $35.00</span></a></li>
