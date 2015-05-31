@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
 var platillos;
 
 var negocioSeleccionado;
-var categoriaSeleccionada;
 var productoSeleccionado;
 
 socket.onmessage = onMessage;
@@ -30,6 +29,10 @@ function onMessage(event) {
 
         case "platillosByCategoria":
             showPlatillos(response[1]);
+            break;
+            
+        case "infoPlatillo":
+            mostrarInfoPlatillo(response[1]);
             break;
     }
 
@@ -83,10 +86,10 @@ function showPlatillos(responseData) {
     platillos = platillosList;
 
     //test platillo info
-    alert("Id: " + platillosList[0].id + "\nNombre: " + platillosList[0].nombre +
-            "\nDescripción: " + platillosList[0].descripcion + "\nCategoria: " +
-            platillosList[0].categoria + "\nPrecio: " + platillosList[0].precio +
-            "\nTiempo de Preparación: " + platillosList[0].tiempoPreparacion);
+//    alert("Id: " + platillosList[0].id + "\nNombre: " + platillosList[0].nombre +
+//            "\nDescripción: " + platillosList[0].desscripcion + "\nCategoria: " +
+//            platillosList[0].categoria + "\nPrecio: " + platillosList[0].precio +
+//            "\nTiempo de Preparación: " + platillosList[0].tiempoPreparacion);
 
     $('#productosList').html("");
     for (var i = 0; i < platillosList.length; i++) {
@@ -111,7 +114,7 @@ function signOut() {
     //To remove all attributes so the user can no longer enter the page
     var sessionData = {
         action: "delete",
-        attrs: JSON.stringify(["usuario", "tipo"])
+        attrs: JSON.stringify(["usuario", "tipo", "idUsuario", "nombreUsuario"])
     };
 
     //Send data to http session
@@ -136,30 +139,64 @@ function activarCategorias(indiceNegocio) {
 
 function activarProductos(nombreCategoria) {
     $('#boton-productos').removeClass('disabled');
-    categoriaSeleccionada = nombreCategoria;
 
     //mostrar los productos en la lista
     var requestData = {
         action: "getPlatillosByCategoria",
         idNegocio: negocios[negocioSeleccionado].id,
-        categoria: categoriaSeleccionada
+        categoria: nombreCategoria
     };
 
     socket.send(JSON.stringify(requestData));
 
 
     $('#categoriaDireccion').html("");
-    $('#categoriaDireccion').append(categoriaSeleccionada);
+    $('#categoriaDireccion').append(nombreCategoria);
 }
 
 function mostrarProducto(indiceProducto) {
     productoSeleccionado = indiceProducto;
-    $('#nombreProducto').html("");
-    $('#nombreProducto').append(platillos[productoSeleccionado].nombre);
-    $('#descripcionProducto').html("");
-    $('#descripcionProducto').append(' <strong>Descripción: </strong>' + platillos[productoSeleccionado].descripcion);
-    $('#calificacion').html("");
-    $('#calificacion').append("");
-    $('#precio').html("");
+    var idUsuario;
+    
+
+    //Get idUsuario value in the session
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function(response) {
+        //Success, get id usuario
+        idUsuario = response[0];
+        
+        //Get remaining product info
+        var requestData = {
+            action: "getInfoPlatillo",
+            idPlatillo: platillos[productoSeleccionado].id,
+            idAlumno: idUsuario
+        };
+
+        socket.send(JSON.stringify(requestData));
+    });
+}
+
+function mostrarInfoPlatillo(infoPlatillo) {
+    
+    var platillo = JSON.parse(infoPlatillo);
+    
+    $('#nombreProducto').html(platillos[productoSeleccionado].nombre);
+    $('#descripcionProducto').html(' <strong>Descripción: </strong>' + platillos[productoSeleccionado].descripcion);
+    $('#calificacion').val(platillo.opinion);
     document.getElementById("precio").setAttribute('value', '$' + platillos[productoSeleccionado].precio);
+    $('#tiempo').val(platillos[productoSeleccionado].tiempoPreparacion);
+    
+    //Show image
+    $('#imagenPlatillo').attr('src', 'data:image/png;base64,' + platillo.imagen);
+    
+    //Test
+    alert("Platillo ordenado: " + platillo.ordenado + "\n");
+    
+    var comentarios = platillo.comentarios;
+    //Test comentarios
+    for(var i = 0; i < comentarios.length; i++) {
+        alert("Nombre: " + comentarios[i].alumno +  "\nFecha: " + comentarios[i].fecha + "\nCalificación: " + 
+                comentarios[i].calificacion + "\nComentario: " + 
+                comentarios[i].comentario);
+    }
+    
 }

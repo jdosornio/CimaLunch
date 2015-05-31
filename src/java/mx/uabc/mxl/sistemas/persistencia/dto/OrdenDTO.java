@@ -35,7 +35,7 @@ public class OrdenDTO implements Serializable {
     private double precioTotal;
     private int tiempoEstimado;
     private Date fecha;
-    private boolean realizada;
+    private boolean realizada = false;
     private List<PlatilloOrdenadoDTO> platillosOrdenados = new ArrayList<>();
     
     @Id
@@ -102,7 +102,7 @@ public class OrdenDTO implements Serializable {
     }
 
     @Temporal(value = TIMESTAMP)
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "fecha")
     /**
      * @return the fecha
      */

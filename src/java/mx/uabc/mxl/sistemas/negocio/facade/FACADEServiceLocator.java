@@ -13,6 +13,9 @@ public class FACADEServiceLocator {
     private static BaseFACADE baseFACADE;
     private static UsuarioFACADE usuarioFACADE;
     private static NegocioFACADE negocioFACADE;
+    private static ComentarioPlatilloFACADE comentarioPlatilloFACADE;
+    private static OrdenFACADE ordenFACADE;
+    private static PlatilloFACADE platilloFACADE;
     
     public static BaseFACADE getBaseInstance() {
         
@@ -41,4 +44,30 @@ public class FACADEServiceLocator {
         return negocioFACADE;
     }
     
+    public static ComentarioPlatilloFACADE getComentarioPlatilloInstance() {
+        
+        if(comentarioPlatilloFACADE == null) {
+            comentarioPlatilloFACADE = new ComentarioPlatilloFACADE();
+        }
+        
+        return comentarioPlatilloFACADE;
+    }
+    
+    public static OrdenFACADE getOrdenInstance() {
+        
+        if(ordenFACADE == null) {
+            ordenFACADE = new OrdenFACADE();
+        }
+        
+        return ordenFACADE;
+    }
+    
+    public static PlatilloFACADE getPlatilloFACADE() {
+        
+        if(platilloFACADE == null) {
+            platilloFACADE = new PlatilloFACADE();
+        }
+        
+        return platilloFACADE;
+    }
 }

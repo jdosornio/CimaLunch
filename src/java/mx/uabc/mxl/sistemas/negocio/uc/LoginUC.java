@@ -30,7 +30,8 @@ public class LoginUC {
             if(user.getPass().equals(pass)) {
                 //If ok return usuario and tipo and ok message
                 response = LOGIN_OK + "/" + usuario + "/" + 
-                        user.getTipo().toString();
+                        user.getTipo().toString() + "/" + user.getId()
+                        + "/" + user.getNombre();
             }
         }
         

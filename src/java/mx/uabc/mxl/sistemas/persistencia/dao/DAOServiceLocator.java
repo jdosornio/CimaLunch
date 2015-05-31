@@ -13,6 +13,9 @@ public class DAOServiceLocator {
     private static BaseDAO baseDAO;
     private static UsuarioDAO usuarioDAO;
     private static NegocioDAO negocioDAO;
+    private static ComentarioPlatilloDAO comentarioPlatilloDAO;
+    private static OrdenDAO ordenDAO;
+    private static PlatilloDAO platilloDAO;
     
     public static BaseDAO getBaseInstance() {
         
@@ -39,5 +42,32 @@ public class DAOServiceLocator {
         }
         
         return negocioDAO;
+    }
+    
+    public static PlatilloDAO getPlatilloInstance() {
+        
+        if(platilloDAO == null) {
+            platilloDAO = new PlatilloDAO();
+        }
+        
+        return platilloDAO;
+    }
+    
+    public static OrdenDAO getOrdenInstance() {
+        
+        if(ordenDAO == null) {
+            ordenDAO = new OrdenDAO();
+        }
+        
+        return ordenDAO;
+    }
+    
+    public static ComentarioPlatilloDAO getComentarioPlatilloInstance() {
+        
+        if(comentarioPlatilloDAO == null) {
+            comentarioPlatilloDAO = new ComentarioPlatilloDAO();
+        }
+        
+        return comentarioPlatilloDAO;
     }
 }

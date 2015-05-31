@@ -18,7 +18,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/estiloPrincipalAlumno.css" rel="stylesheet">
-        <script src="js/modernizr-2.8.3.min"></script>
+        <script src="js/modernizr-2.8.3.min.js"></script>
     </head>
 
     <body>
@@ -29,7 +29,7 @@
                 //go to index
                 response.sendRedirect("index.jsp");
             } else {
-                nombreUsuario = String.valueOf(session.getAttribute("usuario"));
+                nombreUsuario = String.valueOf(session.getAttribute("nombreUsuario"));
             }
         %>
 
@@ -156,7 +156,7 @@
                 </div>
                 <h2 id="nombreProducto"></h2>
                 <div class="imagenArticulo col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <img src="imagenes/platillo1.jpg">
+                    <img id="imagenPlatillo">
                 </div>
                 <div class="detallesArticulo col-sm-12 col-md-6 col-lg-6">
                     <p  id="descripcionProducto"></p>
@@ -167,7 +167,7 @@
                     <input type="text" id="precio" readonly="readonly">
                     <br><br>
                     <label for="tiempo">Tiempo de preparación:</label>
-                    <input type="text" value="15" readonly="readonly">
+                    <input id="tiempo" type="text" value="15" readonly="readonly">
                     <span>minuto(s).</span>
                     <br><br>
                     <label for="cantidad">Cantidad:</label>
@@ -181,6 +181,7 @@
                         <h4>Comentarios de otros clientes:</h4>
                         <br><br>
                         <ul>
+                            <!--
                             <li>
                                 <span>Nombre del cliente.</span>
                                 <span>Calificación: 5/5</span>
@@ -210,6 +211,7 @@
                                 <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                     tempor incididunt ut labore et dolore magna aliqua.</span>
                             </li>
+                            -->
                         </ul>
                     </div>
                 </div>
