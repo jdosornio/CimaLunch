@@ -68,42 +68,11 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <button class="dropdown-toggle btn btn-default navbar-btn" data-toggle="dropdown" role="button"> 
+                                <button class="dropdown-toggle btn btn-default navbar-btn" data-toggle="dropdown" role="button" onclick="mostrarTodaLaCharola()"> 
                                     <span class="glyphicon glyphicon-inbox"></span><span class="cont"> <!-- Numero de articulos en el carrito --> </span>
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu dropdown-cart" role="menu">
-                                    <li>
-                                        <span class="item">
-                                            <span class="item-left">
-                                                <img src="http://lorempixel.com/50/50/" alt="" />
-                                                <span class="item-info">
-                                                    <span>Platillo 1</span>
-                                                    <span>$19.50</span>
-                                                </span>
-                                            </span>
-                                            <span class="item-right">
-                                                <button class="btn btn-xs btn-danger pull-right">x</button>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="item">
-                                            <span class="item-left">
-                                                <img src="http://lorempixel.com/50/50/" alt="" />
-                                                <span class="item-info">
-                                                    <span>Bebida 1</span>
-                                                    <span>$13.00</span>
-                                                </span>
-                                            </span>
-                                            <span class="item-right">
-                                                <button class="btn btn-xs btn-danger pull-right">x</button>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li role="presentation" class="dropdown-header">Total: $32.50</li>
-                                    <li class="divider"></li>
-                                    <li><a class="text-center" href="">Confirmar Orden</a></li>
+                                <ul id="charola" class="dropdown-menu dropdown-cart" role="menu">
+                                    <!-- Contenido de la charola -->
                                 </ul>
                             </li>
                             <li><a href="#" onclick="signOut()">Cerrar Sesión</a></li>

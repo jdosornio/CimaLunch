@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -12,7 +12,7 @@ var platillos;
 var negocioSeleccionado;
 var productoSeleccionado;
 var categoriaSeleccionada;
-var charola = new Array(), cont = 0;
+var charola = new Array(), cont = 0, imagenes = new Array();
 $('.cont').append(" " + cont + " ");
 
 socket.onmessage = onMessage;
@@ -34,6 +34,12 @@ function onMessage(event) {
             break;
         case "ordenesAlumno":
             mostrarOrdenesAlumno(response[1]);
+            break;
+        case "noComentario":
+            $('#estadoComentario').append("Ya has comentado este producto anteriormente.");
+            break;
+        case "siComentario":
+            alert("Comentario realizado exitosamente.");
             break;
     }
 
@@ -187,6 +193,7 @@ $(document).ready(function () {
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
         //Success, get id usuario
         charola = response[0];
+        mostrarTodaLaCharola();
     });
 });
 /**
@@ -252,6 +259,7 @@ function mostrarProducto(indiceProducto) {
 function mostrarInfoPlatillo(infoPlatillo) {
 
     var platillo = JSON.parse(infoPlatillo);
+    imagenes[platillos[productoSeleccionado].id] = platillo.imagen;
     $('.modal-body').html("");
     $('.modal-body').append('<h4>' + platillos[productoSeleccionado].nombre + '</h4>' +
             '<div class="detallesIzq col-xs-12 col-sm-12 col-md-6 col-lg-6">' +
@@ -266,7 +274,7 @@ function mostrarInfoPlatillo(infoPlatillo) {
             '<br>' +
             '<label for="cantidad">Cantidad:</label>' +
             '<input id="cantidad" type="number" max="99" min="1" value="1">' +
-            '<button class="btn btn-primary" type="submit" onclick="agregarACharola(\'' + productoSeleccionado + '\')">Añadir a la charola</button>' +
+            '<button class="btn btn-primary" type="submit" data-dismiss="modal" onclick="agregarACharola(\'' + productoSeleccionado + '\')">Añadir a la charola</button>' +
             '</div>' +
             '<div style="clear: both;"></div> ' +
             '<div class="comentariosClientes">' +
@@ -293,7 +301,7 @@ function mostrarInfoPlatillo(infoPlatillo) {
             '<label for="comentario">Dejanos tu comentario:</label>' +
             '<br>' +
             '<label for="calificacion">Calificación:</label>' +
-            '<select>' +
+            '<select id="calificacion">' +
             '<option>1</option>' +
             '<option>2</option>' +
             '<option>3</option>' +
@@ -301,20 +309,21 @@ function mostrarInfoPlatillo(infoPlatillo) {
             '<option>5</option>' +
             ' </select>' +
             '<br><br>' +
-            '<textarea name="comentario" form="usrform" rows="3" cols="30"></textarea>' +
+            '<textarea id="comentario" name="comentario" form="usrform" rows="3" cols="30" required></textarea>' +
             '<br><br>' +
-            ' <button class="btn btn-sm btn-primary">Enviar</button>' +
-            '</form>'
-            );
+            ' <button class="btn btn-sm btn-primary" onClick="grabarComentario()">Enviar</button>' +
+            '<br>' +
+            '<span id="estadoComentario"></span>' +
+            '</form>');
 }
 
 function agregarACharola(indice) {
     var cantidad = $('#cantidad').val();
-    charola[cont] = platillos[indice];
+    //charola[cont] = platillos[indice]; 
     cont = +cont + +cantidad;
     $('.cont').html("");
     $('.cont').append(" " + cont + " ");
-    actualizarCharola();
+    //actualizarCharola();
 
     var platillo = platillos[indice];
 
@@ -332,6 +341,7 @@ function agregarACharola(indice) {
         $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
             //Success, get id usuario
             charola = response[0];
+            mostrarTodaLaCharola();
         });
     });
 }
@@ -349,41 +359,50 @@ function removerDeCharola(indice) {
         $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
             //Success, get id usuario
             charola = response[0];
+            mostrarTodaLaCharola();
         });
     });
 }
 
 function mostrarTodaLaCharola() {
+    var total = 0;
+    var cont = 0;
     //Prueba
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
         //Success, get id usuario
+        $('#charola').html("");
         var charola = response[0];
-
         for (var i = 0; i < charola.length; i++) {
-            alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
+            //  alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
+            total = +total + +(charola[i].precio * charola[i].cantidad);
+            cont = +cont + +charola[i].cantidad;
+            $('#charola').append('<li>' +
+                    ' <span class="item">' +
+                    ' <span class="item-left">' +
+                    ' <img src="data:image/png;base64,' + charola[i].imagen + '">' +
+                    ' <span class="item-info">' +
+                    ' <span>' + charola[i].nombre + '</span>' +
+                    '<span>$' + charola[i].precio + ' pesos.</span>' +
+                    '</span>' +
+                    '  </span>' +
+                    '<span class="item-right">' +
+                    '<span>Cant: ' + charola[i].cantidad + '  </span>' +
+                    ' <button class="btn btn-xs btn-danger pull-right" onclick="removerDeCharola(\'' + i + '\')">X</button>' +
+                    ' </span>' +
+                    '</span>' +
+                    ' </li>');
         }
+        $('#charola').append('<li class="divider"></li>' +
+                '<li role="presentation" class="dropdown-header">Total: $ ' + total + ' pesos.</li>' +
+                ' <li class="divider"></li>' +
+                '<li><a class="text-center" href="">Confirmar Orden</a></li>');
+        $('.cont').html("");
+        $('.cont').append(" " + cont + " ");
     });
 }
 
-function actualizarCharola() {
-    $('.dropdown-cart').append('<li>' +
-            ' <span class="item">' +
-            ' <span class="item-left">' +
-            ' <img src="http://lorempixel.com/50/50/" alt="" />' +
-            ' <span class="item-info">' +
-            ' <span>Platillo 1</span>' +
-            '<span>$19.50</span>' +
-            '</span>' +
-            '  </span>' +
-            '<span class="item-right">' +
-            ' <button class="btn btn-xs btn-danger pull-right">x</button>' +
-            ' </span>' +
-            '</span>' +
-            ' </li>');
-}
-
 function removerTodosDeCharola() {
-    
+
     var sessionData = {
         action: "delete",
         attrs: JSON.stringify(["charola"])
@@ -399,7 +418,7 @@ function removerTodosDeCharola() {
 }
 
 function getOrdenesAlumno() {
-    
+
     var idUsuario;
     //Get idUsuario value in the session
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
@@ -410,7 +429,7 @@ function getOrdenesAlumno() {
             action: "getOrdenesAlumno",
             idAlumno: idUsuario
         };
-        
+
         socket.send(JSON.stringify(requestData));
     });
 }
@@ -418,18 +437,46 @@ function getOrdenesAlumno() {
 //Prueba
 function mostrarOrdenesAlumno(responseData) {
     var ordenes = JSON.parse(responseData);
-    
-    for(var i = 0; i < ordenes.length; i++) {
+
+    for (var i = 0; i < ordenes.length; i++) {
         alert("Id: " + ordenes[i].id);
         //Las ordenes tienen mas datos como id, precioTotal, tiempoEstimado y fecha
         //por si se requieren
         var platillos = ordenes[i].platillosOrdenados;
-        
-        for(var j = 0; j < platillos.length; j++) {
-            alert("Nombre: " + platillos[j].nombre + "\nNegocio: " + platillos[j].negocio + 
+
+        for (var j = 0; j < platillos.length; j++) {
+            alert("Nombre: " + platillos[j].nombre + "\nNegocio: " + platillos[j].negocio +
                     "\nStatus: " + platillos[j].status);
             //Los platillos tienen mas datos como precio, tiempoPreparacion, 
             //cantidad, por si se requieren
         }
     }
+}
+
+function grabarComentario() {
+    var comentario, calificacion, idUsuario, idPlatillo;
+
+    comentario = $('#comentario').val();
+    calificacion = $('#calificacion').val();
+    idPlatillo = platillos[productoSeleccionado].id;
+
+    alert(comentario);
+    alert(calificacion);
+    alert(idPlatillo);
+
+    //Get idUsuario value in the session
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
+        //Success, get id usuario
+        idUsuario = response[0];
+
+        var requestData = {
+            action: "setComentario",
+            comentario: comentario,
+            calificacion: calificacion,
+            idAlumno: idUsuario,
+            idPlatillo: idPlatillo
+        };
+
+        socket.send(JSON.stringify(requestData));
+    });
 }

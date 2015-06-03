@@ -30,7 +30,7 @@ public class ConsultarPlatillosUC {
     private final static String ALL_NEGOCIOS = "allNegocios";
     private final static String PLATILLOS_BY_CATEGORIA = "platillosByCategoria";
     private final static String INFO_PLATILLO = "infoPlatillo";
-    
+
     private final static String DELIMITER = ":DELIM>";
 
     public String getAllNegocios() {
@@ -131,8 +131,8 @@ public class ConsultarPlatillosUC {
 
         //Get imagen
         byte[] imagen = FACADEServiceLocator.getPlatilloFACADE().getImagen(platillo);
-        
-        if(imagen == null) {
+
+        if (imagen == null) {
             //If no image then there is no platillo in the database so return
             //null right now
             return null;
@@ -149,7 +149,7 @@ public class ConsultarPlatillosUC {
 
         List<ComentarioPlatilloDTO> comentarios = FACADEServiceLocator
                 .getComentarioPlatilloInstance().getComentarios(platillo);
-        
+
         //Create JSON Object for storing data
         JSONObject jsonObj = new JSONObject();
 
@@ -157,25 +157,25 @@ public class ConsultarPlatillosUC {
             jsonObj.put("imagen", imagenString);
             jsonObj.put("opinion", promedioCalificacion);
             jsonObj.put("ordenado", ordenado);
-            
+
             //Store comentarios too
             JSONArray jsonComentarios = new JSONArray();
-            for(ComentarioPlatilloDTO comentario : comentarios) {
+            for (ComentarioPlatilloDTO comentario : comentarios) {
                 JSONObject jsonComentario = new JSONObject();
-                
+
                 jsonComentario.put("alumno", comentario.getAlumno().getNombre());
                 jsonComentario.put("calificacion", comentario.getCalificacion());
                 jsonComentario.put("comentario", comentario.getComentario());
                 jsonComentario.put("fecha", comentario.getFecha());
                 jsonComentarios.put(jsonComentario);
             }
-            
+
             //Save comentarios too
             jsonObj.put("comentarios", jsonComentarios);
-            
+
             System.out.println(jsonObj);
             response = INFO_PLATILLO + DELIMITER + jsonObj.toString();
-            
+
         } catch (JSONException ex) {
             Logger.getLogger(ConsultarPlatillosUC.class.getName()).log(Level.SEVERE, null, ex);
             response = null;
@@ -183,5 +183,23 @@ public class ConsultarPlatillosUC {
 
         return response;
     }
-    
+
+    public boolean setComentario(String comentario, int calificacion, int idPlatillo, int idAlumno) {
+
+        PlatilloDTO platillo = new PlatilloDTO();
+        platillo.setId(idPlatillo);
+
+        UsuarioDTO alumno = new UsuarioDTO();
+        alumno.setId(idAlumno);
+
+        ComentarioPlatilloDTO comentarioPlatillo = new ComentarioPlatilloDTO();
+        
+        comentarioPlatillo.setComentario(comentario);
+        comentarioPlatillo.setCalificacion(calificacion);
+        comentarioPlatillo.setAlumno(alumno);
+        comentarioPlatillo.setPlatillo(platillo);
+
+        return FACADEServiceLocator.getBaseInstance().saveEntity(comentarioPlatillo);
+    }
+
 }

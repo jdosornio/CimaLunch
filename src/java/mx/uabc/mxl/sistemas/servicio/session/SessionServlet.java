@@ -112,7 +112,7 @@ public class SessionServlet extends HttpServlet {
                             break;
                         }
                     }
-                    
+
                     if (ok) {
                         charola.put(platillo);
                     }
@@ -143,6 +143,11 @@ public class SessionServlet extends HttpServlet {
                     for (int i = 0; i < charola.length(); i++) {
                         if (charola.getJSONObject(i).getInt("id") != id) {
                             newCharola.put(charola.getJSONObject(i));
+                        } else {
+                            if (charola.getJSONObject(i).getInt("cantidad") > 1) {
+                                charola.getJSONObject(i).put("cantidad", charola.getJSONObject(i).getInt("cantidad") - 1);
+                                newCharola.put(charola.getJSONObject(i));
+                            }
                         }
                     }
 
