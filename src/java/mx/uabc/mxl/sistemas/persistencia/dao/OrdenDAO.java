@@ -11,6 +11,8 @@ import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloOrdenadoDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 import mx.uabc.mxl.sistemas.persistencia.util.HibernateUtil;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -53,5 +55,33 @@ public class OrdenDAO extends BaseDAO<OrdenDTO> {
         }
 
         return ok;
+    }
+    
+    public List<OrdenDTO> getOrdenesAlumno(UsuarioDTO alumno) {
+        List<OrdenDTO> ordenes;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            
+            //Get ordenes of alumno that are already placed.
+            ordenes = HibernateUtil.getSession()
+                    .createCriteria(OrdenDTO.class)
+                    .add(Restrictions.and(
+                            Restrictions.eq("alumno", alumno),
+                            Restrictions.eq("realizada", true)
+                    ))
+                    .addOrder(Order.desc("fecha"))
+                    .setFetchMode("platillosOrdenados", FetchMode.JOIN).list();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            ordenes = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return ordenes;
     }
 }

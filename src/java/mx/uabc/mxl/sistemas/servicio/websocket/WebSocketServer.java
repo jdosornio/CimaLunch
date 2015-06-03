@@ -15,6 +15,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import mx.uabc.mxl.sistemas.negocio.uc.ConsultarOrdenesUC;
 import mx.uabc.mxl.sistemas.negocio.uc.ConsultarPlatillosUC;
 import mx.uabc.mxl.sistemas.negocio.uc.LoginUC;
 import org.codehaus.jettison.json.JSONException;
@@ -39,6 +40,8 @@ public class WebSocketServer {
             "getPlatillosByCategoria";
     private static final String GET_INFO_PLATILLO = "getInfoPlatillo";
     
+    private static final String GET_ORDENES_ALUMNO = "getOrdenesAlumno";
+    
     private static final String ID_NEGOCIO = "idNegocio";
     private static final String CATEGORIA = "categoria";
     
@@ -52,6 +55,8 @@ public class WebSocketServer {
     private LoginUC loginUC;
     @Inject
     private ConsultarPlatillosUC consultarPlatillosUC;
+    @Inject
+    private ConsultarOrdenesUC consultarOrdenesUC;
     
     @OnOpen
     public void open(Session session) {
@@ -113,6 +118,15 @@ public class WebSocketServer {
                     response = consultarPlatillosUC
                             .getPlatilloInfo(actionData.getInt(ID_PLATILLO),
                                     actionData.getInt(ID_ALUMNO));
+                    
+                    if(response != null) {
+                        sessionHandler.sendToSession(session, response);
+                    }
+                    break;
+                
+                case GET_ORDENES_ALUMNO:
+                    response = consultarOrdenesUC
+                            .getOrdenesAlumno(actionData.getInt(ID_ALUMNO));
                     
                     if(response != null) {
                         sessionHandler.sendToSession(session, response);

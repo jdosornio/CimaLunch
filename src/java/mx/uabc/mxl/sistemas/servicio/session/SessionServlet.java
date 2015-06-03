@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -30,7 +31,12 @@ public class SessionServlet extends HttpServlet {
     private final static String ATTRS = "attrs";
     private final static String VALUES = "values";
     private final static String GET = "get";
-    
+
+    private final static String ADD_TO_CHAROLA = "addToCharola";
+    private final static String REMOVE_FROM_CHAROLA = "removeFromCharola";
+
+    private final static String PLATILLO = "platillo";
+
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +46,7 @@ public class SessionServlet extends HttpServlet {
 
         //Get the action between save or delete an attribute
         String action = request.getParameter(ACTION);
-        
+
         switch (action) {
             case SAVE:
                 try {
@@ -74,6 +80,79 @@ public class SessionServlet extends HttpServlet {
                     Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
+
+            case ADD_TO_CHAROLA:
+                try {
+                    //platillo to add
+                    JSONObject platillo = new JSONObject(request.getParameter(PLATILLO));
+
+                    //Get platillos in session, if no platillos then create a new array
+                    JSONArray charola = (JSONArray) session.getAttribute("charola");
+
+                    if (charola == null) {
+                        //Create array
+                        charola = new JSONArray();
+                    }
+
+                    boolean ok = true;
+                    //Add platillo
+                    for (int i = 0; i < charola.length(); i++) {
+                        if (charola.getJSONObject(i).getInt("id")
+                                == platillo.getInt("id")) {
+                            //If already in the array
+                            JSONObject jsonPlatillo = charola.getJSONObject(i);
+
+                            //Add to cantidad
+                            jsonPlatillo.put("cantidad", platillo.getInt("cantidad")
+                                    + jsonPlatillo.getInt("cantidad"));
+
+                            //Replace
+                            charola.put(i, jsonPlatillo);
+                            ok = false;
+                            break;
+                        }
+                    }
+                    
+                    if (ok) {
+                        charola.put(platillo);
+                    }
+
+                    //Save the attribute again, by all means
+                    session.setAttribute("charola", charola);
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+
+            case REMOVE_FROM_CHAROLA:
+                try {
+                    //platillo to add
+                    int id = Integer.parseInt(request.getParameter("id"));
+
+                    //Get platillos in session, if no platillos then create a new array
+                    JSONArray charola = (JSONArray) session.getAttribute("charola");
+
+                    if (charola == null) {
+                        //Create array
+                        charola = new JSONArray();
+                    }
+                    //Remove platillo
+                    JSONArray newCharola = new JSONArray();
+
+                    for (int i = 0; i < charola.length(); i++) {
+                        if (charola.getJSONObject(i).getInt("id") != id) {
+                            newCharola.put(charola.getJSONObject(i));
+                        }
+                    }
+
+                    //Save the attribute again, by all means
+                    session.setAttribute("charola", newCharola);
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
         }
     }
 
@@ -86,7 +165,7 @@ public class SessionServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         response.setContentType("application/json");
-        
+
         //Get user session in browser
         HttpSession session = request.getSession();
 
@@ -99,21 +178,19 @@ public class SessionServlet extends HttpServlet {
                     //Get the array of attributes
                     JSONArray attrs = new JSONArray(request.getParameter(ATTRS));
                     JSONArray values = new JSONArray();
-                    
+
                     //Get every value of every attribute and put it in the response
                     for (int i = 0; i < attrs.length(); i++) {
                         System.out.println("Atribute: " + attrs.getString(i));
 
                         values.put(session.getAttribute(attrs.getString(i)));
-                        
+
                         System.out.println("Values: " + session
                                 .getAttribute(attrs.getString(i)));
                     }
-
-                    values.put(3);
                     //Send response
                     response.getWriter().print(values.toString());
-                    
+
                 } catch (JSONException ex) {
                     Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }

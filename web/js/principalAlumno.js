@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -31,6 +31,9 @@ function onMessage(event) {
             break;
         case "infoPlatillo":
             mostrarInfoPlatillo(response[1]);
+            break;
+        case "ordenesAlumno":
+            mostrarOrdenesAlumno(response[1]);
             break;
     }
 
@@ -180,6 +183,11 @@ $(document).ready(function () {
     $(window).on('beforeunload', function () {
         socket.close();
     });
+    //for getting the data of the charola
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+        //Success, get id usuario
+        charola = response[0];
+    });
 });
 /**
  * Mostrar las categorias de productos activar el div de productos
@@ -307,10 +315,58 @@ function agregarACharola(indice) {
     $('.cont').html("");
     $('.cont').append(" " + cont + " ");
     actualizarCharola();
+
+    var platillo = platillos[indice];
+
+    //Seleccionar la cantidad...
+    platillo.cantidad = cantidad;
+    //Send producto to session
+    var sessionData = {
+        action: "addToCharola",
+        platillo: JSON.stringify(platillo)
+    };
+
+    //Send data to http session
+    $.post("SessionServlet", sessionData, function () {
+        //Hacer algo cuando se guarde el producto en la sesion
+        $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+            //Success, get id usuario
+            charola = response[0];
+        });
+    });
 }
 
-function actualizarCharola(){
-        $('.dropdown-cart').append('<li>' +
+function removerDeCharola(indice) {
+    //Prueba
+    var sessionData = {
+        action: "removeFromCharola",
+        id: charola[indice].id
+    };
+
+    //Send data to http session
+    $.post("SessionServlet", sessionData, function () {
+        //Hacer algo cuando se guarde el producto en la sesion
+        $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+            //Success, get id usuario
+            charola = response[0];
+        });
+    });
+}
+
+function mostrarTodaLaCharola() {
+    //Prueba
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+        //Success, get id usuario
+        var charola = response[0];
+
+        for (var i = 0; i < charola.length; i++) {
+            alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
+        }
+    });
+}
+
+function actualizarCharola() {
+    $('.dropdown-cart').append('<li>' +
             ' <span class="item">' +
             ' <span class="item-left">' +
             ' <img src="http://lorempixel.com/50/50/" alt="" />' +
@@ -324,4 +380,56 @@ function actualizarCharola(){
             ' </span>' +
             '</span>' +
             ' </li>');
+}
+
+function removerTodosDeCharola() {
+    
+    var sessionData = {
+        action: "delete",
+        attrs: JSON.stringify(["charola"])
+    };
+    //Send data to http session
+    $.post("SessionServlet", sessionData, function () {
+        //Once deleted, return to index
+        $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+            //Success, get id usuario
+            charola = response[0];
+        });
+    });
+}
+
+function getOrdenesAlumno() {
+    
+    var idUsuario;
+    //Get idUsuario value in the session
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
+        //Success, get id usuario
+        idUsuario = response[0];
+        //Get ordenes alumno
+        var requestData = {
+            action: "getOrdenesAlumno",
+            idAlumno: idUsuario
+        };
+        
+        socket.send(JSON.stringify(requestData));
+    });
+}
+
+//Prueba
+function mostrarOrdenesAlumno(responseData) {
+    var ordenes = JSON.parse(responseData);
+    
+    for(var i = 0; i < ordenes.length; i++) {
+        alert("Id: " + ordenes[i].id);
+        //Las ordenes tienen mas datos como id, precioTotal, tiempoEstimado y fecha
+        //por si se requieren
+        var platillos = ordenes[i].platillosOrdenados;
+        
+        for(var j = 0; j < platillos.length; j++) {
+            alert("Nombre: " + platillos[j].nombre + "\nNegocio: " + platillos[j].negocio + 
+                    "\nStatus: " + platillos[j].status);
+            //Los platillos tienen mas datos como precio, tiempoPreparacion, 
+            //cantidad, por si se requieren
+        }
+    }
 }
