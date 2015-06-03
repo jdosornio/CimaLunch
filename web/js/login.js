@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 socket.onmessage = onMessage;
 
 function onMessage(event) {
@@ -15,7 +15,7 @@ function onMessage(event) {
 
         //Get usuario in 1 and tipo in 2
         var usuario = response.split("/");
-        
+
         var sessionData = {
             action: "save",
             attrs: JSON.stringify(["usuario", "tipo", "idUsuario", "nombreUsuario"]),
@@ -25,11 +25,11 @@ function onMessage(event) {
         //Send data to http session
         $.post("SessionServlet", sessionData, function () {
             //Once saved depending on the type go to the right page...
-            
-            if(usuario[2] === "ALUMNO") {
+
+            if (usuario[2] === "ALUMNO") {
                 location.replace("principalAlumno.jsp");
             }
-            else if(usuario[2] === "ADMIN_LOCAL") {
+            else if (usuario[2] === "ADMIN_LOCAL") {
                 //window.location.replace = "principalAdmin.jsp"
             }
         });

@@ -34,7 +34,7 @@
         %>
 
         <div class="container">
-            <!-- Static navbar -->
+            <!-- Barra de navegacion -->
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -69,7 +69,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <button class="dropdown-toggle btn btn-default navbar-btn" data-toggle="dropdown" role="button"> 
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> 2 <span class="caret"></span></button>
+                                    <span class="glyphicon glyphicon-inbox"></span><span class="cont"> <!-- Numero de articulos en el carrito --> </span>
+                                    <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-cart" role="menu">
                                     <li>
                                         <span class="item">
@@ -107,8 +108,8 @@
                             </li>
                             <li><a href="#" onclick="signOut()">Cerrar Sesión</a></li>
                         </ul>
-                    </div><!--/.nav-collapse -->
-                </div><!--/.container-fluid -->
+                    </div><!--Barra de navegacion -->
+                </div><!--Contenedor de barra -->
             </nav>
 
             <aside class="negocios col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -117,120 +118,66 @@
                         <button class="dropdown-toggle btn btn-default navbar-btn btn-lg boton-negocios" data-toggle="dropdown" role="button"> 
                             <span class="glyphicon glyphicon-lock"> Negocio</span> <span class="caret"></span></button>
                         <ul id="negociosList" class="dropdown-menu dropdown-cart" role="menu">
-                            <!--
-                            <li><a href="#"><img src="imagenes/logo1.jpg"> Deli</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><img src="imagenes/logo2.jpg"> Javis</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><img src="imagenes/logo3.jpg"> Pizza Mia</a></li>
-                            -->
-                        </ul>
-                    </li>
-                    <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
-                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-categorias" data-toggle="dropdown" role="button"> 
-                            <span class="glyphicon glyphicon-glass"> Categoria</span> <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-cart" role="menu">
-                            <li><a href="#" onclick="activarProductos('Comida')"><img src="imagenes/comida.jpg"> Platillos</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('Bebida')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('Dulce')"><img src="imagenes/botana.png"> Botanas</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" onclick="activarProductos('Otro')"><img src="imagenes/botana.png"> Otro</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown col-xs-4 col-sm-4 col-md-12 col-lg-12">
-                        <button class="dropdown-toggle btn btn-default navbar-btn btn-lg disabled" id="boton-productos" data-toggle="dropdown" role="button"> 
-                            <span class="glyphicon glyphicon-cutlery"> Producto</span> <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-cart" role="menu" id="productosList">
+                            <!--Dropdown de los Locales -->
                         </ul>
                     </li>
                 </ul>
             </aside>
 
             <!-- Div del producto -->
-            <div class="producto col-xs-12 col-sm-12 col-md-7 col-lg-8">
+            <div class="producto col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden">
                 <div class="direccion col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <img id="logoDireccion">
-                    <span id="categoriaDireccion"></span>
+                    <img id="logoNegocio">
+                    <span id="sloganNegocio"></span>
                 </div>
-                <h2 id="nombreProducto"></h2>
-                <div class="imagenArticulo col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <img id="imagenPlatillo">
-                </div>
-                <div class="detallesArticulo col-sm-12 col-md-6 col-lg-6">
-                    <p  id="descripcionProducto"></p>
-                    <label for="calificacion">Opinion de los clientes:</label>
-                    <input type="text" id="calificacion" readonly="readonly">
-                    <br><br>
-                    <label for="precio">Precio:</label>
-                    <input type="text" id="precio" readonly="readonly">
-                    <br><br>
-                    <label for="tiempo">Tiempo de preparación:</label>
-                    <input id="tiempo" type="text" value="15" readonly="readonly">
-                    <span>minuto(s).</span>
-                    <br><br>
-                    <label for="cantidad">Cantidad:</label>
-                    <input type="number" max="99" min="1" value="1">
-                    <br><br>
-                    <button class="btn btn-sm btn-primary">Añadir al carrito</button>
-                </div>
-                <div style="clear:both;"></div>
-                <div class="comentarios">
-                    <div class="comentariosClientes">
-                        <h4>Comentarios de otros clientes:</h4>
-                        <br><br>
-                        <ul>
-                            <!--
-                            <li>
-                                <span>Nombre del cliente.</span>
-                                <span>Calificación: 5/5</span>
-                                <br>
-                                <span>Fecha del comentario</span>
-                                <br>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.</span>
-                            </li>
-                            <br>
-                            <li>
-                                <span>Nombre del cliente.</span>
-                                <span>Calificación: 5/5</span>
-                                <br>
-                                <span>Fecha del comentario</span>
-                                <br>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.</span>
-                            </li>
-                            <br>
-                            <li>
-                                <span>Nombre del cliente.</span>
-                                <span>Calificación: 5/5</span>
-                                <br>
-                                <span>Fecha del comentario</span>
-                                <br>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.</span>
-                            </li>
-                            -->
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#comidas" data-toggle="tab" onclick="activarProductos('Comida')">Comidas</a></li >
+                    <li role ="presentation"><a href="#bebidas" data-toggle="tab" onclick="activarProductos('Bebida')">Bebidas</a></li>
+                    <li role="presentation"><a href="#dulces" data-toggle="tab" onclick="activarProductos('Dulce')">Dulces</a></li>
+                    <li role="presentation"><a href="#otros" data-toggle="tab" onclick="activarProductos('Otro')">Otros</a></li>
+                </ul>
+                <!-- Tabbed Pane categorias -->
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="comidas">
+                        <ul id="listaProductosComida">
+                            <!-- Productos de categoria comida -->
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="bebidas">
+                        <ul id="listaProductosBebida">
+                            <!-- Productos de categoria bebida -->
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="dulces">
+                        <ul id="listaProductosDulce">
+                            <!-- Productos de categoria dulce -->
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="otros">
+                        <ul id="listaProductosOtro">
+                            <!-- Productos de categoria otro -->
                         </ul>
                     </div>
                 </div>
-                <form>
-                    <label for="comentario">Dejanos tu comentario:</label>
-                    <br>
-                    <label for="calificacion">Calificación:</label>
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                    <br><br>
-                    <textarea name="comentario" form="usrform" rows="3" cols="30"></textarea>
-                    <br><br>
-                    <button class="btn btn-sm btn-primary">Enviar</button>
-                </form>             
+
+                <!--Detalles de los productos -->
+                <div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h3 class="modal-title" id="myModalLabel">Detalles</h3>
+                            </div>
+                            <div class="modal-body modalInfo">
+                                <!--Detalles del producto seleccionado -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -239,9 +186,9 @@
                 Fernando Enrique Avendaño Hernández
                 <br>
                 Jesús Donaldo Osornio Hernández
-            </footer>
+            </footer><!-- Footer -->
 
-        </div> <!-- /container -->
+        </div> <!-- Contenedor del body -->
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
