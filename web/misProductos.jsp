@@ -24,8 +24,6 @@
 
     <body>
 
- 
-
         <div class="container">
             <!-- Static navbar -->
             <nav class="navbar navbar-default">
@@ -54,7 +52,7 @@
             <section class="contenedor col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>Mis Productos</h2>
                 <button type="button" id="agregar" class="btn btn-md btn-primary" data-toggle="modal" data-target="#myModal">Agregar</button>
-                <!--/ Modal Agregar y Modificar -->
+                <!--/ Modal Agregar -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -65,24 +63,61 @@
                             <div class="modal-body">
                                 <form class="agregarProducto">
                                     <label for="categoria" class="sr-only">Categoria:</label>
-                                    <select class="selectCategoria">
-                                        <option>Comida</option>
-                                        <option>Bebida</option>
-                                        <option>Dulce</option>
+                                    <select id="categoriaNueva" class="selectCategoria">
+                                        <option>COMIDA</option>
+                                        <option>BEBIDA</option>
+                                        <option>DULCE</option>
+                                        <option>OTRO</option>
                                     </select>
                                     <label for="nombre" class="sr-only control-label">Nombre:</label>
-                                    <input name="nombre" type="text" class="form-control" placeholder="Nombre" required="">
+                                    <input id="nombreNuevo" name="nombre" type="text" class="form-control" placeholder="Nombre" required="">
                                     <label for="descripcion" class="sr-only">Descripcion:</label>
-                                    <textarea name="descripcion" form="usrform" rows="3" cols="30" placeholder="Descripción"></textarea>
+                                    <textarea id="descripcionNueva" name="descripcion" form="usrform" rows="3" cols="30" placeholder="Descripción"></textarea>
                                     <label for="precio" class="sr-only">Precio:</label>
-                                    <input name="precio" type="text" class="form-control" placeholder="Precio" required="">
+                                    <input id="precioNuevo" name="precio" type="text" class="form-control" placeholder="Precio" required="">
                                     <label for="tiempo" class="sr-only">Tiempo de preparación:</label>
-                                    <input name="tiempo" type="number" class="form-control" placeholder="Tiempo" required="" min="0" max="60" value="0">
+                                    <input id="tiempoNuevo" name="tiempo" type="text" class="form-control" placeholder="Tiempo" required="">
                                     <label for="imagen">File input</label>
-                                    <input type="file" id="imagen">
+                                    <input type="file" id="imagen" onchange="openFile(event)">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                        <button class="btn btn-primary" type="submit">Agregar</button>
+                                        <button class="btn btn-primary" type="submit" onclick="addPlatillo()">Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Modal Modificar -->
+                <div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modificar un producto</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="agregarProducto">
+                                    <label for="categoria" class="sr-only">Categoria:</label>
+                                    <select id="categoriaMod" class="selectCategoria">
+                                        <option>COMIDA</option>
+                                        <option>BEBIDA</option>
+                                        <option>DULCE</option>
+                                        <option>OTRO</option>
+                                    </select>
+                                    <label for="nombre" class="sr-only control-label">Nombre:</label>
+                                    <input id="nombreMod" name="nombre" type="text" class="form-control" placeholder="Nombre" required="">
+                                    <label for="descripcion" class="sr-only">Descripcion:</label>
+                                    <textarea id="descripcionMod" name="descripcion" form="usrform" rows="3" cols="30" placeholder="Descripción"></textarea>
+                                    <label for="precio" class="sr-only">Precio:</label>
+                                    <input id="precioMod" name="precio" type="text" class="form-control" placeholder="Precio" required="">
+                                    <label for="tiempo" class="sr-only">Tiempo de preparación:</label>
+                                    <input id="tiempoMod" name="tiempo" type="text" class="form-control" placeholder="Tiempo" required="">
+                                    <label for="imagen">File input</label>
+                                    <input type="file" id="imagenMod" onchange="openFile(event)">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button class="btn btn-primary" type="submit" onclick="updatePlatillo()" data-dismiss="modal">Modificar</button>
                                     </div>
                                 </form>
                             </div>
@@ -95,14 +130,14 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Eliminar un producto</h4>
+                                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
                             </div>
                             <div class="modal-body">
                                 <span>Estas seguro de que deseas eliminar este producto?</span>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <button class="btn btn-primary" type="submit">Eliminar</button>
+                                <button class="btn btn-primary" data-dismiss="modal" onclick="deletePlatillo()">Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -113,53 +148,21 @@
                             <button class="dropdown-toggle btn btn-default navbar-btn btn-lg" data-toggle="dropdown" role="button"> 
                                 <span class="glyphicon glyphicon-glass"> Categoria</span> <span class="caret"></span></button>
                             <ul class="dropdown-menu dropdown-cart" role="menu">
-                                <li><a href="#"><img src="imagenes/comida.jpg"> Platillos</a></li>
+                                <li><a href="#" onclick="getAllPlatillos('Comida')"><img src="imagenes/comida.jpg"> Comidas</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
+                                <li><a href="#" onclick="getAllPlatillos('Bebida')"><img src="imagenes/bebidas.jpg"> Bebidas</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#"><img src="imagenes/botana.png"> Botanas</a></li>
+                                <li><a href="#" onclick="getAllPlatillos('Dulce')"><img src="imagenes/botana.png"> Dulces</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" onclick="getAllPlatillos('Otro')"><img src="imagenes/botana.png"> Otros</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+                <h3 id="categoria"><!-- Titulo de la categoria --></h3>
                 <div class="productos col-xs-11 col-sm-11 col-md-8 col-lg-8">
-                    <table class="table table-hover table-striped table-responsive">
-                        <tr>
-                            <th>id</th>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Precio</th>
-                            <th>Tiempo de preparacion</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Platillo 1</td>
-                            <td>Descripcion platillo 1</td>
-                            <td>$15.00</td>
-                            <td>17 minutos</td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Platillo 1</td>
-                            <td>Descripcion platillo 1</td>
-                            <td>$15.00</td>
-                            <td>17 minutos</td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Platillo 1</td>
-                            <td>Descripcion platillo 1</td>
-                            <td>$15.00</td>
-                            <td>17 minutos</td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="">Eliminar</button></td>
-                            <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Modificar</button></td>
-                        </tr>
+                    <table class="table table-hover table-striped table-responsive" id="tablaProductos">
+                        <!-- Lista de productos por categoria -->
                     </table>
                 </div>
             </section>

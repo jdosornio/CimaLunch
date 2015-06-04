@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 var idUsuario;
 var idNegocio;
 var ordenes;
 var imagenBytes;
+var categoriaActual;
+var idProductoActual;
+var platillos;
 
 socket.onmessage = onMessage;
 socket.onopen = onOpen;
@@ -20,7 +23,7 @@ function onMessage(event) {
     switch (response[0]) {
         //Returned all negocios
         case "addPlatilloOk":
-            alert("platillo registrado correctamente");
+            alert("Platillo registrado correctamente");
             break;
 
         case "addPlatilloError":
@@ -29,6 +32,7 @@ function onMessage(event) {
 
         case "updatePlatilloOk":
             alert("platillo actualizado correctamente");
+            getAllPlatillos(categoriaActual);
             break;
 
         case "updatePlatilloError":
@@ -36,7 +40,8 @@ function onMessage(event) {
             break;
 
         case "deletePlatilloOk":
-            alert("platillo eliminado correctamente");
+            alert("Producto eliminado correctamente!");
+            getAllPlatillos(categoriaActual);
             break;
 
         case "deletePlatilloError":
@@ -54,7 +59,7 @@ function onMessage(event) {
         case "infoPlatillo":
             mostrarInfoPlatillo(response[1]);
             break;
-            
+
     }
 
 }
@@ -133,54 +138,90 @@ function arrayBufferToBase64(buffer) {
 
 //Para registrar platillo
 function addPlatillo() {
-    //Esos datos se envian para guardar el producto, es solo una prueba
-    //Try if the image is saved
-    var platillo = {
-        idNegocio: idNegocio,
-        imagen: arrayBufferToBase64(imagenBytes),
-        nombre: "platillo1",
-        precio: 30.50,
-        tiempoPreparacion: 10,
-        categoria: "COMIDA",
-        descripcion: "un platillo muy bueno"
-    };
 
-    var requestData = {
-        action: "addPlatillo",
-        platillo: platillo
-    };
+    var nombre = $('#nombreNuevo').val();
+    var precio = $('#precioNuevo').val();
+    var tiempo = $('#tiempoNuevo').val();
+    var descripcion = $('#descripcionNueva').val();
+    var categoria = $('#categoriaNueva').val();
 
-    socket.send(JSON.stringify(requestData));
+    if (nombre !== "" && precio !== "" && tiempo !== "" && descripcion !== "") {
+
+        //Esos datos se envian para guardar el producto, es solo una prueba
+        //Try if the image is saved
+        var platillo = {
+            idNegocio: +4,
+            imagen: arrayBufferToBase64(imagenBytes),
+            nombre: nombre,
+            precio: precio,
+            tiempoPreparacion: +tiempo,
+            categoria: categoria,
+            descripcion: descripcion
+        };
+
+        var requestData = {
+            action: "addPlatillo",
+            platillo: platillo
+        };
+
+        socket.send(JSON.stringify(requestData));
+
+    }
 }
 
 //Para actualizar platillo, seria casi lo mismo...
 function updatePlatillo() {
-    //Esos datos se envian para actualizar el producto, es solo una prueba
-    //Try if the image is saved
-    var platillo = {
-        //Aquí va el id del platillo
-        idPlatillo: 1,
-        imagen: arrayBufferToBase64(imagenBytes),
-        nombre: "platillo1",
-        precio: 30.50,
-        tiempoPreparacion: 10,
-        categoria: "COMIDA",
-        descripcion: "un platillo muy bueno"
-    };
+    alert("update");
+    var nombre = $('#nombreMod').val();
+    var precio = $('#precioMod').val();
+    var tiempo = $('#tiempoMod').val();
+    var descripcion = $('#descripcionMod').val();
+    var categoria = $('#categoriaMod').val();
 
+    if (nombre !== "" && precio !== "" && tiempo !== "" && descripcion !== "") {
+        alert(nombre + precio + tiempo + descripcion + categoria);
+        //Esos datos se envian para actualizar el producto, es solo una prueba
+        //Try if the image is saved
+        var platillo = {
+            //Aquí va el id del platillo
+            idPlatillo: idProductoActual,
+            idNegocio: +4,
+            imagen: arrayBufferToBase64(imagenBytes),
+            nombre: nombre,
+            precio: precio,
+            tiempoPreparacion: +tiempo,
+            categoria: categoria,
+            descripcion: descripcion
+        };
+
+        var requestData = {
+            action: "updatePlatillo",
+            platillo: platillo
+        };
+
+        socket.send(JSON.stringify(requestData));
+
+    }
+}
+
+function deletePlatillo() {
     var requestData = {
-        action: "updatePlatillo",
-        platillo: platillo
+        action: "deletePlatillo",
+        idPlatillo: idProductoActual
     };
 
     socket.send(JSON.stringify(requestData));
 }
 
 function getAllPlatillos(nombreCategoria) {
+    categoriaActual = nombreCategoria;
+
+    $('#categoria').html("");
+    $('#categoria').append(nombreCategoria + "s");
 
     var requestData = {
         action: "getPlatillosByCategoria",
-        idNegocio: idNegocio,
+        idNegocio: 4,
         categoria: nombreCategoria
     };
 
@@ -188,32 +229,62 @@ function getAllPlatillos(nombreCategoria) {
 }
 
 function showPlatillos(responseData) {
+
     var platillosList = JSON.parse(responseData);
     platillos = platillosList;
-    //test platillo info
-//    alert("Id: " + platillosList[0].id + "\nNombre: " + platillosList[0].nombre +
-//            "\nDescripción: " + platillosList[0].desscripcion + "\nCategoria: " +
-//            platillosList[0].categoria + "\nPrecio: " + platillosList[0].precio +
-//            "\nTiempo de Preparación: " + platillosList[0].tiempoPreparacion);
+
+    $('#tablaProductos').html("");
+    $('#tablaProductos').append('<tr>' +
+            '<th>id</th>' +
+            '<th>Nombre</th>' +
+            '<th>Descripcion</th>' +
+            '<th>Precio</th>' +
+            '<th>Tiempo de preparacion</th>' +
+            '<th></th>' +
+            '<th></th>' +
+            '</tr>');
+
+    for (var i = 0; i < platillosList.length; i++) {
+        $('#tablaProductos').append('<tr>' +
+                '<td>' + platillosList[i].id + '</td>' +
+                '<td>' + platillosList[i].nombre + '</td>' +
+                '<td>' + platillosList[i].descripcion + '</td>' +
+                '<td>$' + platillosList[i].precio + '</td>' +
+                '<td>' + platillosList[0].tiempoPreparacion + ' minutos</td>' +
+                '<td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalEliminar" onclick="getIdPlatillo(\'' + platillosList[i].id + '\')">Eliminar</button></td>' +
+                '<td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalModificar" onclick="mostrarProducto(\'' + i + '\')">Modificar</button></td>' +
+                '</tr>');
+    }
+
+}
+
+function getIdPlatillo(idPlatillo) {
+    idProductoActual = idPlatillo;
 }
 
 function mostrarProducto(indiceProducto) {
     productoSeleccionado = indiceProducto;
+    idProductoActual = platillos[productoSeleccionado].id;
 
     //Get remaining product info
     var requestData = {
         action: "getInfoPlatillo",
         idPlatillo: platillos[productoSeleccionado].id,
-        idAlumno: idUsuario //En realidad no traerá ningún comentario pero sirve para lo mismo
+        idAlumno: +4 //En realidad no traerá ningún comentario pero sirve para lo mismo
     };
     socket.send(JSON.stringify(requestData));
 }
 
 function mostrarInfoPlatillo(infoPlatillo) {
-
     var platillo = JSON.parse(infoPlatillo);
 
-    //mostrar datos....
+    $('#nombreMod').val(platillos[productoSeleccionado].nombre);
+    $('#precioMod').val(platillos[productoSeleccionado].precio);
+    $('#tiempoMod').val(platillos[productoSeleccionado].tiempoPreparacion);
+    $('#descripcionMod').val(platillos[productoSeleccionado].descripcion);
+    $('#categoriaMod').val(platillos[productoSeleccionado].categoria);
+    imagenBytes = platillo.imagen;
+
 }
 
 function recibirNotificacion(response) {
