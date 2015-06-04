@@ -32,8 +32,10 @@ function onMessage(event) {
 function onOpen() {
 //Send get all negocios request
     var requestData = {
-        action: "getAllNegocios"
+        action: "getNegocioAdmin",
+        idAdmin: idUsuario
     };
+
     socket.send(JSON.stringify(requestData));
 }
 
@@ -60,13 +62,12 @@ $(document).ready(function () {
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
         //Success, get id usuario
         idUsuario = response[0];
-
-        var requestData = {
-            action: "getNegocioAdmin",
-            idAdmin: idUsuario
-        };
-
-        socket.send(JSON.stringify(requestData));
     });
     //Get id negocio and ordenes
 });
+
+function notificarAlumno() {
+    
+    //Para cuando seleccione que un platillo está listo
+    
+}

@@ -24,7 +24,16 @@
 
     <body>
 
-
+        <%
+            String nombreUsuario = null;
+            if (session.getAttribute("usuario") == null) {
+                //go to index
+                response.sendRedirect("index.jsp");
+            }
+            else {
+                nombreUsuario = String.valueOf(session.getAttribute("nombreUsuario"));
+            }
+        %>
 
         <div class="container">
             <!-- Static navbar -->
@@ -45,7 +54,7 @@
                             <li><a href="misProductos.jsp"> Mis Productos </a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Cerrar Sesión</a></li>
+                            <li><a onclick="signOut()" href="#">Cerrar Sesión</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
@@ -112,10 +121,11 @@
 
         </div>
 
-        <script src="js/principalAdministrador.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="js/principalAdministrador.js"></script>
+        <script src="js/notificacionesAdmin.js"></script>
         <script src="js/bootstrap.js"></script>
 
-        <input type='file' onchange='openFile(event)'>
+        <!--<input type='file' onchange='openFile(event)'>-->
     </body>
 </html>
