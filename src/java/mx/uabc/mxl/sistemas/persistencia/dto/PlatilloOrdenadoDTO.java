@@ -16,13 +16,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Jesus Donaldo
  */
 @Entity
-@Table(name = "platillo_ordenado")
+@Table(name = "platillo_ordenado",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"id_orden", "id_platillo"}))
 public class PlatilloOrdenadoDTO implements Serializable {
     
     private int id;
@@ -53,8 +55,6 @@ public class PlatilloOrdenadoDTO implements Serializable {
     @JoinColumn(
             name = "id_orden",
             referencedColumnName = "id",
-            insertable = false,
-            updatable = false,
             nullable = false
     )
     /**
@@ -71,7 +71,7 @@ public class PlatilloOrdenadoDTO implements Serializable {
         this.orden = orden;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_platillo")
     /**
      * @return the platillo

@@ -17,13 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.TIMESTAMP;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Jesus Donaldo
  */
 @Entity
-@Table(name = "comentario_platillo")
+@Table(name = "comentario_platillo",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"id_alumno", "id_platillo"}))
 public class ComentarioPlatilloDTO implements Serializable {
     
     private int id;

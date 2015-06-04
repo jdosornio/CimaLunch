@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import mx.uabc.mxl.sistemas.negocio.facade.FACADEServiceLocator;
+import mx.uabc.mxl.sistemas.persistencia.dao.DAOServiceLocator;
 import mx.uabc.mxl.sistemas.persistencia.dto.OrdenDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloOrdenadoDTO;
@@ -72,31 +73,40 @@ public class MantenerOrdenUC {
         return ok;
     }
     
-    public static void main(String[] args) {
-        
-        OrdenDTO orden = new OrdenDTO();
-        
-        UsuarioDTO alumno = new UsuarioDTO();
-        alumno.setId(1);
-        
-        orden.setAlumno(alumno);
-        orden.setFecha(new Date());
-        orden.setPrecioTotal(5440.2);
-        orden.setRealizada(true);
-        orden.setTiempoEstimado(15);
-        
-        PlatilloOrdenadoDTO po = new PlatilloOrdenadoDTO();
-        po.setCantidad(5);
-        po.setStatus(PlatilloOrdenadoDTO.Status.LISTO);
-        po.setVisto(true);
-        
-        PlatilloDTO platillo = new PlatilloDTO();
-        platillo.setId(1);
-        
-        po.setPlatillo(platillo);
-        
-        orden.addPlatilloOrdenado(po);
-        
-        System.out.println(FACADEServiceLocator.getBaseInstance().saveEntity(orden));
-    }
+//    public static void main(String[] args) {
+//        
+//        OrdenDTO orden = new OrdenDTO();
+//        
+//        UsuarioDTO alumno = new UsuarioDTO();
+//        alumno.setId(1);
+//        
+//        orden.setAlumno(alumno);
+//        orden.setFecha(new Date());
+//        orden.setPrecioTotal(5440.2);
+//        orden.setRealizada(true);
+//        orden.setTiempoEstimado(15);
+//        
+//        PlatilloOrdenadoDTO po = new PlatilloOrdenadoDTO();
+//        po.setCantidad(5);
+//        po.setStatus(PlatilloOrdenadoDTO.Status.PREPARACION);
+//        po.setVisto(false);
+//
+//        //orden = FACADEServiceLocator.getOrdenInstance().getEntity(1, OrdenDTO.class);
+//        
+//        //po.setOrden(orden);
+////        List platillosOrdenados = new ArrayList();
+////        platillosOrdenados.add(po);
+//        
+//        
+//        PlatilloDTO platillo = new PlatilloDTO();
+//        platillo.setId(1);
+//        
+//        po.setPlatillo(platillo);
+//        
+//        //System.out.println(FACADEServiceLocator.getBaseInstance().saveEntity(orden));
+//        orden.addPlatilloOrdenado(po);
+//        //orden.setPlatillosOrdenados(platillosOrdenados);
+//        //po.setOrden(orden);
+//        System.out.println(FACADEServiceLocator.getBaseInstance().saveEntity(orden));
+//    }
 }
