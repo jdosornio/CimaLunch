@@ -148,5 +148,6 @@ public class OrdenDTO implements Serializable {
     public void addPlatilloOrdenado(PlatilloOrdenadoDTO platillo) {
         platillo.setOrden(this);
         platillosOrdenados.add(platillo);
+        System.out.println("Agregados!");
     }
 }

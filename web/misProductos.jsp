@@ -4,9 +4,9 @@
     Author     : FernandoEnrique
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
@@ -19,6 +19,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/estiloMisProductos.css" rel="stylesheet">
+        <script src="js/modernizr-2.8.3.min.js"></script>
     </head>
 
     <body>

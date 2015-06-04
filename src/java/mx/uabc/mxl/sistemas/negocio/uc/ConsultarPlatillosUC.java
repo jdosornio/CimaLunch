@@ -163,6 +163,7 @@ public class ConsultarPlatillosUC {
             for (ComentarioPlatilloDTO comentario : comentarios) {
                 JSONObject jsonComentario = new JSONObject();
 
+                jsonComentario.put("idAlumno", comentario.getAlumno().getId());
                 jsonComentario.put("alumno", comentario.getAlumno().getNombre());
                 jsonComentario.put("calificacion", comentario.getCalificacion());
                 jsonComentario.put("comentario", comentario.getComentario());

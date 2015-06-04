@@ -38,6 +38,29 @@ public class BaseDAO<T> {
         return ok;
     }
     
+    public boolean save(T entity) {
+        
+        boolean ok = true;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            //Transaction....
+            HibernateUtil.getSession().save(entity);
+            
+            HibernateUtil.commitTransaction();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            ok = false;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return ok;
+    }
+    
     public T get(int id, Class<T> clazz) {
         
         T entity = null;

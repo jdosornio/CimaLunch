@@ -18,7 +18,10 @@ public class BaseFACADE<T> {
     public boolean saveEntity(T entity) {
         return DAOServiceLocator.getBaseInstance().saveOrUpdate(entity);
     }
-    
+
+    public boolean saveEntity2(T entity) {
+        return DAOServiceLocator.getBaseInstance().save(entity);
+    }
     public boolean updateEntity(T entity) {
         return DAOServiceLocator.getBaseInstance().saveOrUpdate(entity);
     }

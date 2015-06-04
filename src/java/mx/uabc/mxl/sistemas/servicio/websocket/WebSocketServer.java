@@ -18,6 +18,7 @@ import javax.websocket.server.ServerEndpoint;
 import mx.uabc.mxl.sistemas.negocio.uc.ConsultarOrdenesUC;
 import mx.uabc.mxl.sistemas.negocio.uc.ConsultarPlatillosUC;
 import mx.uabc.mxl.sistemas.negocio.uc.LoginUC;
+import mx.uabc.mxl.sistemas.negocio.uc.MantenerOrdenUC;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -43,6 +44,8 @@ public class WebSocketServer {
 
     private static final String GET_ORDENES_ALUMNO = "getOrdenesAlumno";
 
+    private static final String PLACE_ORDER = "placeOrder";
+    
     private static final String ID_NEGOCIO = "idNegocio";
     private static final String CATEGORIA = "categoria";
 
@@ -52,6 +55,10 @@ public class WebSocketServer {
     private static final String COMENTARIO = "comentario";
     private static final String CALIFICACION = "calificacion";
 
+    private static final String CHAROLA = "charola";
+    private static final String PRECIO_TOTAL = "precioTotal";
+    private static final String TIEMPO_ESTIMADO = "tiempoEstimado";
+    
     @Inject
     private SessionHandler sessionHandler;
     @Inject
@@ -60,7 +67,9 @@ public class WebSocketServer {
     private ConsultarPlatillosUC consultarPlatillosUC;
     @Inject
     private ConsultarOrdenesUC consultarOrdenesUC;
-
+    @Inject
+    private MantenerOrdenUC mantenerOrdenUC;
+    
     @OnOpen
     public void open(Session session) {
         sessionHandler.addSession(session);
@@ -146,6 +155,19 @@ public class WebSocketServer {
                         sessionHandler.sendToSession(session, "noComentario");
                     }else{
                         sessionHandler.sendToSession(session, "siComentario");
+                    }
+                    break;
+                    
+                case PLACE_ORDER:
+                    flag = mantenerOrdenUC.confirmarOrden(actionData.getInt(ID_ALUMNO),
+                            actionData.getJSONArray(CHAROLA),
+                            actionData.getDouble(PRECIO_TOTAL),
+                            actionData.getInt(TIEMPO_ESTIMADO));
+                    
+                    if (flag == false) {
+                        sessionHandler.sendToSession(session, "placeOrderError");
+                    }else{
+                        sessionHandler.sendToSession(session, "placeOrderOk");
                     }
                     break;
             }

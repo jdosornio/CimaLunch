@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -12,7 +12,13 @@ var platillos;
 var negocioSeleccionado;
 var productoSeleccionado;
 var categoriaSeleccionada;
-var charola = new Array(), cont = 0, imagenes = new Array();
+var charola = new Array(), cont = 0;
+var imagenActual;
+var idUsuario;
+
+var precioCharola;
+var tiempoCharola;
+
 $('.cont').append(" " + cont + " ");
 
 socket.onmessage = onMessage;
@@ -40,6 +46,12 @@ function onMessage(event) {
             break;
         case "siComentario":
             alert("Comentario realizado exitosamente.");
+            break;
+        case "placeOrderError":
+            alert("No se pudo guardar la orden");
+            break;
+        case "placeOrderOk":
+            limpiarCharola();
             break;
     }
 
@@ -190,9 +202,10 @@ $(document).ready(function () {
         socket.close();
     });
     //for getting the data of the charola
-    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola", "idUsuario"])}, function (response) {
         //Success, get id usuario
         charola = response[0];
+        idUsuario = response[1];
         mostrarTodaLaCharola();
     });
 });
@@ -236,19 +249,14 @@ function activarProductos(nombreCategoria) {
  */
 function mostrarProducto(indiceProducto) {
     productoSeleccionado = indiceProducto;
-    var idUsuario;
-    //Get idUsuario value in the session
-    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
-        //Success, get id usuario
-        idUsuario = response[0];
-        //Get remaining product info
-        var requestData = {
-            action: "getInfoPlatillo",
-            idPlatillo: platillos[productoSeleccionado].id,
-            idAlumno: idUsuario
-        };
-        socket.send(JSON.stringify(requestData));
-    });
+
+    //Get remaining product info
+    var requestData = {
+        action: "getInfoPlatillo",
+        idPlatillo: platillos[productoSeleccionado].id,
+        idAlumno: idUsuario
+    };
+    socket.send(JSON.stringify(requestData));
 }
 
 /**
@@ -259,7 +267,7 @@ function mostrarProducto(indiceProducto) {
 function mostrarInfoPlatillo(infoPlatillo) {
 
     var platillo = JSON.parse(infoPlatillo);
-    imagenes[platillos[productoSeleccionado].id] = platillo.imagen;
+    imagenActual = platillo.imagen;
     $('.modal-body').html("");
     $('.modal-body').append('<h4>' + platillos[productoSeleccionado].nombre + '</h4>' +
             '<div class="detallesIzq col-xs-12 col-sm-12 col-md-6 col-lg-6">' +
@@ -293,6 +301,11 @@ function mostrarInfoPlatillo(infoPlatillo) {
                 '<span>Comentario: ' + comentarios[i].comentario + '</span>' +
                 ' </li>' +
                 ' <br>');
+
+        //Para obtener el id del alumno
+        alert("Id Alumno de la sesion: " + idUsuario);
+        
+        alert("Id Alumno que comento: " + comentarios[i].idAlumno);
     }
     $('.modal-body').append(
             '</ul>' +
@@ -326,9 +339,10 @@ function agregarACharola(indice) {
     //actualizarCharola();
 
     var platillo = platillos[indice];
-
     //Seleccionar la cantidad...
     platillo.cantidad = cantidad;
+    platillo.imagen = imagenActual;
+
     //Send producto to session
     var sessionData = {
         action: "addToCharola",
@@ -365,8 +379,12 @@ function removerDeCharola(indice) {
 }
 
 function mostrarTodaLaCharola() {
-    var total = 0;
+    precioCharola = 0;
     var cont = 0;
+    //Calcular el tiempo estimado, por ahora se dejara asi para probar que se
+    //guarde la orden
+    tiempoCharola = 0;
+    
     //Prueba
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
         //Success, get id usuario
@@ -374,7 +392,7 @@ function mostrarTodaLaCharola() {
         var charola = response[0];
         for (var i = 0; i < charola.length; i++) {
             //  alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
-            total = +total + +(charola[i].precio * charola[i].cantidad);
+            precioCharola = + precioCharola + +(charola[i].precio * charola[i].cantidad);
             cont = +cont + +charola[i].cantidad;
             $('#charola').append('<li>' +
                     ' <span class="item">' +
@@ -393,9 +411,9 @@ function mostrarTodaLaCharola() {
                     ' </li>');
         }
         $('#charola').append('<li class="divider"></li>' +
-                '<li role="presentation" class="dropdown-header">Total: $ ' + total + ' pesos.</li>' +
+                '<li role="presentation" class="dropdown-header">Total: $ ' + precioCharola + ' pesos.</li>' +
                 ' <li class="divider"></li>' +
-                '<li><a class="text-center" href="">Confirmar Orden</a></li>');
+                '<li><a class="text-center" href="#" onclick="confirmarOrden()">Confirmar Orden</a></li>');
         $('.cont').html("");
         $('.cont').append(" " + cont + " ");
     });
@@ -419,19 +437,12 @@ function removerTodosDeCharola() {
 
 function getOrdenesAlumno() {
 
-    var idUsuario;
-    //Get idUsuario value in the session
-    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
-        //Success, get id usuario
-        idUsuario = response[0];
-        //Get ordenes alumno
-        var requestData = {
-            action: "getOrdenesAlumno",
-            idAlumno: idUsuario
-        };
+    var requestData = {
+        action: "getOrdenesAlumno",
+        idAlumno: idUsuario
+    };
 
-        socket.send(JSON.stringify(requestData));
-    });
+    socket.send(JSON.stringify(requestData));
 }
 
 //Prueba
@@ -454,7 +465,7 @@ function mostrarOrdenesAlumno(responseData) {
 }
 
 function grabarComentario() {
-    var comentario, calificacion, idUsuario, idPlatillo;
+    var comentario, calificacion, idPlatillo;
 
     comentario = $('#comentario').val();
     calificacion = $('#calificacion').val();
@@ -464,19 +475,38 @@ function grabarComentario() {
     alert(calificacion);
     alert(idPlatillo);
 
-    //Get idUsuario value in the session
-    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
-        //Success, get id usuario
-        idUsuario = response[0];
+    var requestData = {
+        action: "setComentario",
+        comentario: comentario,
+        calificacion: calificacion,
+        idAlumno: idUsuario,
+        idPlatillo: idPlatillo
+    };
 
-        var requestData = {
-            action: "setComentario",
-            comentario: comentario,
-            calificacion: calificacion,
-            idAlumno: idUsuario,
-            idPlatillo: idPlatillo
-        };
+    socket.send(JSON.stringify(requestData));
+}
 
-        socket.send(JSON.stringify(requestData));
+function confirmarOrden() {
+    
+    var requestData = {
+        action: "placeOrder",
+        idAlumno: idUsuario,
+        charola: charola,
+        precioTotal: precioCharola,
+        tiempoEstimado: tiempoCharola
+    };
+
+    socket.send(JSON.stringify(requestData));
+}
+
+function limpiarCharola() {
+    
+    var sessionData = {
+        action: "delete",
+        attrs: JSON.stringify(["charola"])
+    };
+    //Send data to http session
+    $.post("SessionServlet", sessionData, function () {
+        //Deleted
     });
 }
