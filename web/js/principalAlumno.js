@@ -51,8 +51,12 @@ function onMessage(event) {
             alert("No se pudo guardar la orden");
             break;
         case "placeOrderOk":
+            //notificarNegocio();
             limpiarCharola();
             break;
+            //Quitar...
+        default:
+            alert(response[1]);
     }
 
 }
@@ -304,7 +308,7 @@ function mostrarInfoPlatillo(infoPlatillo) {
 
         //Para obtener el id del alumno
         alert("Id Alumno de la sesion: " + idUsuario);
-        
+
         alert("Id Alumno que comento: " + comentarios[i].idAlumno);
     }
     $('.modal-body').append(
@@ -384,7 +388,7 @@ function mostrarTodaLaCharola() {
     //Calcular el tiempo estimado, por ahora se dejara asi para probar que se
     //guarde la orden
     tiempoCharola = 0;
-    
+
     //Prueba
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["charola"])}, function (response) {
         //Success, get id usuario
@@ -392,7 +396,7 @@ function mostrarTodaLaCharola() {
         var charola = response[0];
         for (var i = 0; i < charola.length; i++) {
             //  alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
-            precioCharola = + precioCharola + +(charola[i].precio * charola[i].cantidad);
+            precioCharola = +precioCharola + +(charola[i].precio * charola[i].cantidad);
             cont = +cont + +charola[i].cantidad;
             $('#charola').append('<li>' +
                     ' <span class="item">' +
@@ -487,7 +491,7 @@ function grabarComentario() {
 }
 
 function confirmarOrden() {
-    
+
     var requestData = {
         action: "placeOrder",
         idAlumno: idUsuario,
@@ -500,7 +504,7 @@ function confirmarOrden() {
 }
 
 function limpiarCharola() {
-    
+
     var sessionData = {
         action: "delete",
         attrs: JSON.stringify(["charola"])

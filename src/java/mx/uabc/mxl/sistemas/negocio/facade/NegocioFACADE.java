@@ -10,6 +10,7 @@ import mx.uabc.mxl.sistemas.persistencia.dao.DAOServiceLocator;
 import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO.Categoria;
+import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 
 /**
  *
@@ -22,5 +23,9 @@ public class NegocioFACADE extends BaseFACADE<NegocioDTO> {
         
         return DAOServiceLocator.getNegocioInstance()
                 .getPlatillosByCategoria(negocio, categoria);
+    }
+    
+    public List<NegocioDTO> getNegociosByAdmin(UsuarioDTO adminLocal) {
+        return DAOServiceLocator.getNegocioInstance().getNegociosByAdmin(adminLocal);
     }
 }

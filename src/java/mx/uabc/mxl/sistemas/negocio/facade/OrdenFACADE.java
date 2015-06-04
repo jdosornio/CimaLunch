@@ -7,8 +7,10 @@ package mx.uabc.mxl.sistemas.negocio.facade;
 
 import java.util.List;
 import mx.uabc.mxl.sistemas.persistencia.dao.DAOServiceLocator;
+import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.OrdenDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
+import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloOrdenadoDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 
 /**
@@ -23,5 +25,11 @@ public class OrdenFACADE extends BaseFACADE<OrdenDTO> {
     
     public List<OrdenDTO> getOrdenesAlumno(UsuarioDTO alumno) {
         return DAOServiceLocator.getOrdenInstance().getOrdenesAlumno(alumno);
+    }
+    
+    public List<PlatilloOrdenadoDTO> getPlatillosOrdenByNegocio(OrdenDTO orden,
+            NegocioDTO negocio) {
+        return DAOServiceLocator.getOrdenInstance()
+                .getPlatillosOrdenByNegocio(orden, negocio);
     }
 }

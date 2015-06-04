@@ -9,6 +9,7 @@ import java.util.List;
 import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO.Categoria;
+import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 import mx.uabc.mxl.sistemas.persistencia.util.HibernateUtil;
 import org.hibernate.criterion.Restrictions;
 
@@ -45,4 +46,26 @@ public class NegocioDAO extends BaseDAO<NegocioDTO> {
         return platillos;
     }
 
+    public List<NegocioDTO> getNegociosByAdmin(UsuarioDTO adminLocal) {
+        
+        List<NegocioDTO> negocios;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            //Get all platillos of a negocio by categoria....
+            negocios = HibernateUtil.getSession()
+                    .createCriteria(NegocioDTO.class)
+                    .add(Restrictions.eq("administrador", adminLocal)).list();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            negocios = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return negocios;
+    }
 }
