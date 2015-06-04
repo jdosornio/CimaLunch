@@ -44,25 +44,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand">CimaLunch</a>
+                        <a class="navbar-brand">Cima<span>Lunch</span></a>
                     </div>
                     <div style="height: 0.8px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a>Bienvenido <%="<strong>" + nombreUsuario + "</strong>"%>!</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mis Ordenes <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation" class="dropdown-header">
-                                        <span>Orden 2</span>
-                                    </li>
-                                    <li><a href="#">Platillo 1 (Deli) </a></li>
-                                    <li><a href="#">Bebida 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
-                                    <li class="divider"></li>
-                                    <li role="presentation" class="dropdown-header">
-                                        <span>Orden 1</span>
-                                    </li>
-                                    <li><a href="#">Platillo 1 (Deli) <span class="glyphicon glyphicon-ok"></span></a></li>
-                                    <li><a href="#">Bebida 1 (Javis) <span class="glyphicon glyphicon-ok"></span></a></li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="getOrdenesAlumno()" aria-expanded="false">Mis Ordenes <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu" id="listaOrdenes">
+                                    <!-- Ordenes del alumno -->
                                 </ul>
                             </li>
                         </ul>
