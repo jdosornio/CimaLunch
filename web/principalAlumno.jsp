@@ -50,7 +50,7 @@
                         <ul class="nav navbar-nav">
                             <li><a>Bienvenido <%="<strong>" + nombreUsuario + "</strong>"%>!</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="getOrdenesAlumno()" aria-expanded="false">Mis Ordenes <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="getOrdenesAlumno()" aria-expanded="false">Mis Ordenes <span id="notificacion" class="glyphicon"></span> <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu" id="listaOrdenes">
                                     <!-- Ordenes del alumno -->
                                 </ul>

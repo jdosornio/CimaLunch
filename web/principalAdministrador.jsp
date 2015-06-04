@@ -29,8 +29,7 @@
             if (session.getAttribute("usuario") == null) {
                 //go to index
                 response.sendRedirect("index.jsp");
-            }
-            else {
+            } else {
                 nombreUsuario = String.valueOf(session.getAttribute("nombreUsuario"));
             }
         %>
@@ -50,7 +49,7 @@
                     </div>
                     <div style="height: 0.8px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a>Bienvenido !</a></li>
+                            <li><a>Bienvenido <%="<strong>" + nombreUsuario + "</strong>"%>!</a></li>
                             <li><a href="misProductos.jsp"> Mis Productos </a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -59,63 +58,12 @@
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
             </nav>
-                            
+
             <!--/ Ordenes activas -->
             <section id="ordenesActivas" class="ordenes col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>Mis Ordenes</h2>
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
-                    <h4>Orden 1</h4>
-                    <span><strong>Hecha por:</strong> Luis Miguel a las 13:45:12</span>
-                    <ul>
-                        <li class="producto">
-                            <span>Platillo 1 X 2</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </button>
-                        </li>
-                        <div style="clear: both;"></div>
-                        <li class="producto">
-                            <span>Bebida 2</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-ok"></span>
-                            </button>
-                        </li>
-                        <div style="clear: both;"></div>
-                        <li class="producto">
-                            <span>Dulce 1 X 3</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </button>
-                        </li>
-                    </ul>
-                    <h4 id="totalOrden">Total: $45.00</h4>
-                </article>
-                <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
-                    <h4>Orden 2</h4>
-                    <span><strong>Hecha por:</strong> Juan Gabriel a las 13:53:44</span>
-                    <ul>
-                        <li class="producto">
-                            <span>Platillo 1 X 2</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </button>
-                        </li>
-                        <div style="clear: both;"></div>
-                        <li class="producto">
-                            <span>Bebida 2</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-ok"></span>
-                            </button>
-                        </li>
-                        <div style="clear: both;"></div>
-                        <li class="producto">
-                            <span>Dulce 1 X 3</span>
-                            <button class="btn btn-sm btn-primary">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </button>
-                        </li>
-                    </ul>
-                    <h4 id="totalOrden">Total: $45.00</h4>
+                <article>
+                    <!-- Contenido de las ordenes activas -->
                 </article>
             </section>
 

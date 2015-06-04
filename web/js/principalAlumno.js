@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -39,7 +39,7 @@ function onMessage(event) {
             mostrarInfoPlatillo(response[1]);
             break;
         case "ordenesAlumno":
-                mostrarOrdenesAlumno(response[1]);
+            mostrarOrdenesAlumno(response[1]);
             break;
         case "noComentario":
             $('#estadoComentario').append("Ya has comentado este producto anteriormente.");
@@ -54,7 +54,7 @@ function onMessage(event) {
             limpiarCharola();
             mostrarTodaLaCharola();
             break;
-            
+
         case "orderReady":
             recibirNotificacion(response[1], response[2], response[3]);
             break;
@@ -454,6 +454,7 @@ function removerTodosDeCharola() {
 }
 
 function getOrdenesAlumno() {
+    $('#notificacion').removeClass();
 
     var requestData = {
         action: "getOrdenesAlumno",
@@ -469,7 +470,7 @@ function mostrarOrdenesAlumno(responseData) {
 
     $('#listaOrdenes').html("");
 
-    for (var i = 0; i < ordenes.length - 1; i++) {
+    for (var i = 0; i < ordenes.length; i++) {
         $('#listaOrdenes').append('<li role="presentation" class="dropdown-header">' +
                 '<span>Orden #' + ordenes[i].id + '</span>');
 
@@ -550,4 +551,29 @@ function limpiarCharola() {
     $.post("SessionServlet", sessionData, function () {
         //Deleted
     });
+}
+
+function recibirNotificacion(idOrden, idPlatillo, idAlumno) {
+    idOrden = parseInt(idOrden);
+    idPlatillo = parseInt(idPlatillo);
+
+    //alert("Notificacion");
+
+    $('#notificacion').removeClass();
+    $('#notificacion').addClass("glyphicon");
+    $('#notificacion').addClass("glyphicon-star-empty");
+    //document.getElementById("notificacion").className("glyphicon glyphicon-star-empty");
+
+//    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
+//        //Success, get id usuario
+//        var idUsuario = response[0];
+//        
+//        alert(idUsuario + " " + idAlumno);
+//        
+//        if(idUsuario === idAlumno) {
+//            //?? aqui deberia entrar....
+//            //Si el usuario actual es a quien va dirigido el mensaje....
+//            alert("IdOrden: " + idOrden + "\nIdPlatillo: " + idPlatillo + "\nIdAlumno: " + idAlumno);
+//        }
+//    });
 }

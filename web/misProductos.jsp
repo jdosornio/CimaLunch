@@ -43,7 +43,7 @@
                             <li><a href="principalAdministrador.jsp"> Inicio </a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Cerrar Sesión</a></li>
+                            <li><a href="#" onclick="signOut()">Cerrar Sesión</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->

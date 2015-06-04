@@ -5,7 +5,7 @@
  */
 
 
-var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
 var idUsuario;
 var idNegocio;
 var ordenes;
@@ -47,7 +47,7 @@ function onOpen() {
 //Send get all negocios request
     var requestData = {
         action: "getNegocioAdmin",
-        idAdmin: idUsuario
+        idAdmin: 6
     };
 
     socket.send(JSON.stringify(requestData));
@@ -80,13 +80,22 @@ $(document).ready(function () {
     //Get id negocio and ordenes
 });
 
-function notificarAlumno(idOrden, idPlatillo) {
+function notificarAlumno(idOrden) {
+
+    var idOrdenA = idOrden.split(',')[0];
+    var idPlatilloA = idOrden.split(',')[1];
+
+    var btn = '#' + idOrdenA + 'btn' + idPlatilloA;
+
+    $(btn).removeClass();
+    $(btn).addClass('glyphicon');
+    $(btn).addClass('glyphicon-ok');
 
     //Para cuando seleccione que un platillo está listo
     var requestData = {
         action: "notifyOrderReady",
-        idOrden: idOrden,
-        idPlatillo: idPlatillo
+        idOrden: idOrdenA,
+        idPlatillo: idPlatilloA
     };
 
     socket.send(JSON.stringify(requestData));
@@ -95,14 +104,16 @@ function notificarAlumno(idOrden, idPlatillo) {
 
 function mostrarOrdenes(data) {
 
-    alert(data);
-    
+    $('#ordenesActivas').html("");
+
     var ordenes = JSON.parse(data);
+
+    $('#ordenesActivas').append('<h2>Mis Ordenes</h2>');
 
     for (var i = 0; i < ordenes.length; i++) {
         //Agregar ordenes....
         var ord = '<article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">' +
-                '<h4>Orden ' + ordenes[i].id + '</h4>' +
+                '<h4>Orden #' + ordenes[i].id + '</h4>' +
                 '<span><strong>Hecha por:</strong> ' + ordenes[i].nombreAlumno + ' a las ' + ordenes[i].fecha + '</span>' +
                 '<ul>';
 
@@ -110,8 +121,8 @@ function mostrarOrdenes(data) {
 
         for (var j = 0; j < platillos.length; j++) {
             ord += '<li class="producto">' + '<span>' + platillos[j].nombre + ' X ' + platillos[j].cantidad + '</span>' +
-                    '<button onclick="notificarAlumno(ordenes[i].id, platillos[j].id)" class="btn btn-sm btn-primary">' +
-                    '<span class="glyphicon glyphicon-time"></span>' +
+                    '<button  onclick="notificarAlumno(\'' + ordenes[i].id + ',' + platillos[j].id + '\')" class="btn btn-sm btn-primary">' +
+                    '<span id="' + ordenes[i].id + 'btn' + platillos[j].id + '" class="glyphicon glyphicon-time"></span>' +
                     '</button>' +
                     '</li>' +
                     '<div style="clear: both;"></div>';
@@ -120,7 +131,27 @@ function mostrarOrdenes(data) {
         ord += '</ul>' +
                 '<h4 id="totalOrden">Total: $' + ordenes[i].precioTotal + '</h4>' +
                 '</article>';
-        
-        $('ordenesActivas').append(ord);
+
+        $('#ordenesActivas').append(ord);
     }
+}
+
+function recibirNotificacion(idOrden, idPlatillo, idAlumno) {
+    idOrden = parseInt(idOrden);
+    idPlatillo = parseInt(idPlatillo);
+
+    onOpen();
+
+//    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
+//        //Success, get id usuario
+//        var idUsuario = response[0];
+//        
+//        alert(idUsuario + " " + idAlumno);
+//        
+//        if(idUsuario === idAlumno) {
+//            //?? aqui deberia entrar....
+//            //Si el usuario actual es a quien va dirigido el mensaje....
+//            alert("IdOrden: " + idOrden + "\nIdPlatillo: " + idPlatillo + "\nIdAlumno: " + idAlumno);
+//        }
+//    });
 }
