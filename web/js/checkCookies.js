@@ -21,6 +21,10 @@ function getUrlParts(url) {
     };
 }
 
+$("#inputUser").prop('disabled', false);
+$("#inputPassword").prop('disabled', false);
+$("#signIn").prop('disabled', false);
+
 //If cookies are not enabled
 if (!navigator.cookieEnabled) {
     //Get page of the current url without the domain
@@ -33,8 +37,9 @@ if (!navigator.cookieEnabled) {
     }
     else {
         //if current page = index.jsp show message or alert
-        $(".container").append("<p>Las cookies no están habilitadas, no puedes" +
-                " acceder a la página</p>");
+        document.getElementsByClassName("checkbox")[0].style.display = 'block';
+        $(".checkbox").append("<p>Las cookies no están habilitadas, no puedes" +
+                " acceder a la página.</p>");
 
         //disable login
         $("#inputUser").prop('disabled', true);

@@ -207,7 +207,6 @@ $(document).ready(function () {
         //Success, get id usuario
         charola = response[0];
         idUsuario = response[1];
-        mostrarTodaLaCharola();
     });
 });
 /**
@@ -394,6 +393,11 @@ function mostrarTodaLaCharola() {
         //Success, get id usuario
         $('#charola').html("");
         var charola = response[0];
+        if (charola === null || charola.length === 0) {
+            $('#charola').append('<span class="item-left"> No hay productos.</span><li class="divider"></li>' +
+                    '<li role="presentation" class="dropdown-header">Total: $ ' + precioCharola
+                    + ' pesos.  Tiempo estimado: ' + tiempoCharola + ' minutos.</li>');
+        }
         for (var i = 0; i < charola.length; i++) {
             //  alert("Platillo: " + charola[i].nombre + " Cantidad: " + charola[i].cantidad);
             precioCharola = +precioCharola + +(charola[i].precio * charola[i].cantidad);

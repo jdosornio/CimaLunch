@@ -30,7 +30,7 @@ function onMessage(event) {
                 location.replace("principalAlumno.jsp");
             }
             else if (usuario[2] === "ADMIN_LOCAL") {
-                //window.location.replace = "principalAdmin.jsp"
+                window.location.replace = "principalAdmin.jsp"
             }
         });
     }
@@ -41,6 +41,8 @@ function onMessage(event) {
 }
 
 function login() {
+    $('#signIn').html("");
+    $('#signIn').append('<img src="imagenes/loading.gif"/>');
     var user = $('#inputUser').val();
     var pass = $('#inputPassword').val();
 

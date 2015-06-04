@@ -13,6 +13,19 @@ body {
     background-size: cover;    
 }
 
+.navbar-brand {
+    font-family: Freestyle Script;
+    font-size: 40px;
+    text-align: center;
+    text-shadow:5px 5px 10px #3d768a;
+    color: #088A08;
+    font-weight: bold;
+}
+
+.navbar-brand span {
+    color: #FFE434;
+}
+
 body {
     padding-top: 20px;
     padding-bottom: 20px;

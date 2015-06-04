@@ -44,7 +44,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand">CimaLunch</a>
+                        <a class="navbar-brand">Cima<span>Lunch</span></a>
                     </div>
                     <div style="height: 0.8px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">

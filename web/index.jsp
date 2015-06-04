@@ -20,36 +20,37 @@
         <script src="js/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        
+
         <!-- Redirect if already logged-->
         <%
             if (session.getAttribute("usuario") != null) {
-                
-                if(session.getAttribute("tipo").equals("ALUMNO")) {
+
+                if (session.getAttribute("tipo").equals("ALUMNO")) {
                     response.sendRedirect("principalAlumno.jsp");
-                }
-                else if(session.getAttribute("tipo").equals("ADMIN_LOCAL")) {
+                } else if (session.getAttribute("tipo").equals("ADMIN_LOCAL")) {
                     response.sendRedirect("principalAdministrador.jsp");
                 }
             }
         %>
-        
+
         <div class="container">
 
-      <form id="loginForm" class="form-signin">
-        <h2 class="form-signin-heading">Iniciar sesión</h2>
-        <br><br>
-        <label for="inputUser" class="sr-only">Usuario</label>
-        <input id="inputUser" class="form-control" placeholder="Usuario" required="" autofocus="" type="text">
-        <br>
-        <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input id="inputPassword" class="form-control" placeholder="Contrseña" required="" type="password">
-        <div class="checkbox">
-        </div><br>
-        <button id="signIn" class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
-      </form>
+            <form id="loginForm" class="form-signin">
+                <h1>Cima<span>Lunch</span></h1>
+                <h2 class="form-signin-heading">Iniciar sesión</h2>
+                <div class="checkbox">
+                </div>
+                <br>
+                <label for="inputUser" class="sr-only">Usuario</label>
+                <input id="inputUser" class="form-control" placeholder="Usuario" required="" autofocus="" type="text">
+                <br>
+                <label for="inputPassword" class="sr-only">Contraseña</label>
+                <input id="inputPassword" class="form-control" placeholder="Contrseña" required="" type="password">
+                <br>
+                <button id="signIn" class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+            </form>
 
-    </div> <!-- /container -->
+        </div> <!-- /container -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/checkCookies.js"></script>
