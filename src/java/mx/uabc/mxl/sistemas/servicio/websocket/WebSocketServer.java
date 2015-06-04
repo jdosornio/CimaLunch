@@ -19,6 +19,7 @@ import mx.uabc.mxl.sistemas.negocio.uc.ConsultarOrdenesUC;
 import mx.uabc.mxl.sistemas.negocio.uc.ConsultarPlatillosUC;
 import mx.uabc.mxl.sistemas.negocio.uc.LoginUC;
 import mx.uabc.mxl.sistemas.negocio.uc.MantenerOrdenUC;
+import mx.uabc.mxl.sistemas.negocio.uc.MantenerPlatillosUC;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -44,6 +45,12 @@ public class WebSocketServer {
 
     private static final String GET_ORDENES_ALUMNO = "getOrdenesAlumno";
 
+    private static final String ADD_PLATILLO = "addPlatillo";
+    private static final String UPDATE_PLATILLO = "updatePlatillo";
+    private static final String DELETE_PLATILLO = "deletePlatillo";
+    
+    private static final String GET_NEGOCIO_ADMIN = "getNegocioAdmin";
+    
     private static final String PLACE_ORDER = "placeOrder";
     
     private static final String ID_NEGOCIO = "idNegocio";
@@ -51,13 +58,17 @@ public class WebSocketServer {
 
     private static final String ID_PLATILLO = "idPlatillo";
     private static final String ID_ALUMNO = "idAlumno";
-
+    
+    private static final String ID_ADMIN = "idAdmin";
+    
     private static final String COMENTARIO = "comentario";
     private static final String CALIFICACION = "calificacion";
 
     private static final String CHAROLA = "charola";
     private static final String PRECIO_TOTAL = "precioTotal";
     private static final String TIEMPO_ESTIMADO = "tiempoEstimado";
+    
+    private static final String PLATILLO = "platillo";
     
     @Inject
     private SessionHandler sessionHandler;
@@ -69,6 +80,8 @@ public class WebSocketServer {
     private ConsultarOrdenesUC consultarOrdenesUC;
     @Inject
     private MantenerOrdenUC mantenerOrdenUC;
+    @Inject
+    private MantenerPlatillosUC mantenerPlatillosUC;
     
     @OnOpen
     public void open(Session session) {
@@ -159,16 +172,52 @@ public class WebSocketServer {
                     break;
                     
                 case PLACE_ORDER:
-                    flag = mantenerOrdenUC.confirmarOrden(actionData.getInt(ID_ALUMNO),
+                    response = mantenerOrdenUC.confirmarOrden(actionData.getInt(ID_ALUMNO),
                             actionData.getJSONArray(CHAROLA),
                             actionData.getDouble(PRECIO_TOTAL),
                             actionData.getInt(TIEMPO_ESTIMADO));
                     
-                    if (flag == false) {
-                        sessionHandler.sendToSession(session, "placeOrderError");
-                    }else{
-                        sessionHandler.sendToSession(session, "placeOrderOk");
-                    }
+                    String[] data = response.split("/");
+                    System.out.println(data[0] + " " + "Id: " + data[1]);
+                    //Send response to client
+                    sessionHandler.sendToSession(session, data[0]);
+                    
+                    response = mantenerOrdenUC
+                            .notificarNegocio(Integer.parseInt(data[1]));
+                    //Send to all
+                    sessionHandler.sendToAllSessions(response);
+                    break;
+                
+                case ADD_PLATILLO:
+                    response = mantenerPlatillosUC
+                            .agregarPlatillo(actionData.getJSONObject(PLATILLO));
+                    
+                    sessionHandler.sendToSession(session, response);
+                    
+                    break;
+                
+                case UPDATE_PLATILLO:
+                    response = mantenerPlatillosUC
+                            .actualizarPlatillo(actionData.getJSONObject(PLATILLO));
+                    
+                    sessionHandler.sendToSession(session, response);
+                    
+                    break;
+    
+                case DELETE_PLATILLO:
+                    response = mantenerPlatillosUC
+                            .eliminarPlatillo(actionData.getInt(ID_PLATILLO));
+                    
+                    sessionHandler.sendToSession(session, response);
+                    
+                    break;
+                    
+                case GET_NEGOCIO_ADMIN:
+                    response = mantenerPlatillosUC
+                            .getNegocioAdmin(actionData.getInt(ID_ADMIN));
+                    
+                    sessionHandler.sendToSession(session, response);
+                    
                     break;
             }
         } catch (JSONException ex) {

@@ -116,5 +116,6 @@
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
 
+        <input type='file' onchange='openFile(event)'>
     </body>
 </html>

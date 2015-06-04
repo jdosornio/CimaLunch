@@ -151,8 +151,6 @@ public class PlatilloDTO implements Serializable {
     @JoinColumn(
             name = "id_negocio",
             referencedColumnName = "id",
-            insertable = false,
-            updatable = false,
             nullable = false
     )
     /**

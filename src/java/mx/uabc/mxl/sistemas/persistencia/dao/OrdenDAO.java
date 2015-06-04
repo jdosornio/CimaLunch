@@ -6,11 +6,13 @@
 package mx.uabc.mxl.sistemas.persistencia.dao;
 
 import java.util.List;
+import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.OrdenDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloOrdenadoDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 import mx.uabc.mxl.sistemas.persistencia.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -72,7 +74,8 @@ public class OrdenDAO extends BaseDAO<OrdenDTO> {
                             Restrictions.eq("realizada", true)
                     ))
                     .addOrder(Order.desc("fecha"))
-                    .setFetchMode("platillosOrdenados", FetchMode.JOIN).list();
+                    .setFetchMode("platillosOrdenados", FetchMode.JOIN)
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
             
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
@@ -83,5 +86,34 @@ public class OrdenDAO extends BaseDAO<OrdenDTO> {
         }
 
         return ordenes;
+    }
+    
+    public List<PlatilloOrdenadoDTO> getPlatillosOrdenByNegocio(OrdenDTO orden,
+            NegocioDTO negocio) {
+        
+        List<PlatilloOrdenadoDTO> platillos = null;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            
+            //Get platillos of an order by negocio
+            platillos = HibernateUtil.getSession()
+                    .createCriteria(PlatilloOrdenadoDTO.class, "po")
+                    .createAlias("po.platillo.negocio", "negocio")
+                    .add(Restrictions.and(
+                            Restrictions.eq("po.orden", orden),
+                            Restrictions.eq("negocio.nombre", negocio.getNombre())
+                    )).list();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            platillos = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return platillos;
     }
 }
