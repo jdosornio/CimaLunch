@@ -150,9 +150,9 @@
         </div> <!-- Contenedor del body -->
 
         <script src="js/jquery.js"></script>
+        <script src="js/notificacionesAlumno.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/principalAlumno.js"></script>
-        <script src="js/notificacionesAlumno.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
     </body>

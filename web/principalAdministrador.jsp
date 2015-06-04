@@ -61,7 +61,7 @@
             </nav>
                             
             <!--/ Ordenes activas -->
-            <section class="ordenes col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <section id="ordenesActivas" class="ordenes col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>Mis Ordenes</h2>
                 <article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">
                     <h4>Orden 1</h4>
@@ -122,8 +122,8 @@
         </div>
 
         <script src="js/jquery.js"></script>
-        <script src="js/principalAdministrador.js"></script>
         <script src="js/notificacionesAdmin.js"></script>
+        <script src="js/principalAdministrador.js"></script>
         <script src="js/bootstrap.js"></script>
 
         <!--<input type='file' onchange='openFile(event)'>-->

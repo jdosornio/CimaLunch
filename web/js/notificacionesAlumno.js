@@ -4,16 +4,20 @@
  * and open the template in the editor.
  */
 
-function recibirNotificacion(response) {
-    var orden = JSON.parse(response);
-
-    alert("IdOrden: " + orden.idOrden + "\nFecha: " + orden.fecha + "\nNombre Alumno: " +
-            orden.nombreAlumno + "\nPrecio total: " + orden.precioTotal);
+function recibirNotificacion(idOrden, idPlatillo, idAlumno) {
+    idOrden = parseInt(idOrden);
+    idPlatillo = parseInt(idPlatillo);
     
-    var platillos = orden.platillos;
-    
-    for(var i = 0; i < platillos.length; i++) {
-        alert("Nombre del Platillo: " + platillos[i].nombrePlatillo + "\nCantidad: " +
-                platillos[i].cantidad);
-    }
+    $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
+        //Success, get id usuario
+        var idUsuario = response[0];
+        
+        alert(idUsuario + " " + idAlumno);
+        
+        if(idUsuario === idAlumno) {
+            //?? aqui deberia entrar....
+            //Si el usuario actual es a quien va dirigido el mensaje....
+            alert("IdOrden: " + idOrden + "\nIdPlatillo: " + idPlatillo + "\nIdAlumno: " + idAlumno);
+        }
+    });
 }

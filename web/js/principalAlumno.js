@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 //array for storing the negocios
 var negocios;
 //array for storing platillos
@@ -39,7 +39,7 @@ function onMessage(event) {
             mostrarInfoPlatillo(response[1]);
             break;
         case "ordenesAlumno":
-            mostrarOrdenesAlumno(response[1]);
+                mostrarOrdenesAlumno(response[1]);
             break;
         case "noComentario":
             $('#estadoComentario').append("Ya has comentado este producto anteriormente.");
@@ -53,6 +53,10 @@ function onMessage(event) {
         case "placeOrderOk":
             limpiarCharola();
             mostrarTodaLaCharola();
+            break;
+            
+        case "orderReady":
+            recibirNotificacion(response[1], response[2], response[3]);
             break;
     }
 

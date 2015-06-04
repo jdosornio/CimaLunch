@@ -44,12 +44,15 @@ public class WebSocketServer {
     private static final String GET_INFO_PLATILLO = "getInfoPlatillo";
 
     private static final String GET_ORDENES_ALUMNO = "getOrdenesAlumno";
-
+    private static final String GET_ORDENES_NEGOCIO = "getOrdenesNegocio";
+    
     private static final String ADD_PLATILLO = "addPlatillo";
     private static final String UPDATE_PLATILLO = "updatePlatillo";
     private static final String DELETE_PLATILLO = "deletePlatillo";
     
     private static final String GET_NEGOCIO_ADMIN = "getNegocioAdmin";
+    
+    private static final String NOTIFY_ORDER_READY = "notifyOrderReady";
     
     private static final String PLACE_ORDER = "placeOrder";
     
@@ -60,6 +63,7 @@ public class WebSocketServer {
     private static final String ID_ALUMNO = "idAlumno";
     
     private static final String ID_ADMIN = "idAdmin";
+    private static final String ID_ORDEN = "idOrden";
     
     private static final String COMENTARIO = "comentario";
     private static final String CALIFICACION = "calificacion";
@@ -218,6 +222,24 @@ public class WebSocketServer {
                     
                     sessionHandler.sendToSession(session, response);
                     
+                    break;
+                    
+                case GET_ORDENES_NEGOCIO:
+                    response = consultarOrdenesUC
+                            .getOrdenesNegocio(actionData.getInt(ID_NEGOCIO));
+
+                    if (response != null) {
+                        sessionHandler.sendToSession(session, response);
+                    }
+                    break;
+                
+                case NOTIFY_ORDER_READY:
+                    response = consultarOrdenesUC.notificarAlumno(actionData.getInt(ID_ORDEN),
+                            actionData.getInt(ID_PLATILLO));
+
+                    if (response != null) {
+                        sessionHandler.sendToAllSessions(response);
+                    }
                     break;
             }
         } catch (JSONException ex) {

@@ -32,4 +32,12 @@ public class OrdenFACADE extends BaseFACADE<OrdenDTO> {
         return DAOServiceLocator.getOrdenInstance()
                 .getPlatillosOrdenByNegocio(orden, negocio);
     }
+    
+    public List<OrdenDTO> getOrdenesByNegocio(NegocioDTO negocio) {
+        return DAOServiceLocator.getOrdenInstance().getOrdenesByNegocio(negocio);
+    }
+    
+    public PlatilloOrdenadoDTO getPlatilloOrdenado(OrdenDTO orden, PlatilloDTO platillo) {
+        return DAOServiceLocator.getOrdenInstance().getPlatilloOrdenado(orden, platillo);
+    }
 }

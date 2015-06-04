@@ -14,6 +14,7 @@ import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
 import mx.uabc.mxl.sistemas.persistencia.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -115,5 +116,64 @@ public class OrdenDAO extends BaseDAO<OrdenDTO> {
         }
 
         return platillos;
+    }
+    
+    public List<OrdenDTO> getOrdenesByNegocio(NegocioDTO negocio) {
+        
+        List<OrdenDTO> ordenes = null;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            
+            //Get platillos of an order by negocio
+            ordenes = HibernateUtil.getSession()
+                    .createCriteria(OrdenDTO.class, "orden")
+                    .createAlias("orden.platillosOrdenados", "platillos")
+                    .createAlias("platillos.platillo", "platillo")
+                    .add(Restrictions.and(
+                            Restrictions.eq("platillo.negocio", negocio),
+                            Restrictions.eq("platillos.status", PlatilloOrdenadoDTO.Status.PREPARACION)
+                    ))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+            
+            for(OrdenDTO orden : ordenes) {
+                Hibernate.initialize(orden.getPlatillosOrdenados());
+            }
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            ordenes = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return ordenes;
+    }
+    
+    public PlatilloOrdenadoDTO getPlatilloOrdenado(OrdenDTO orden, PlatilloDTO platillo) {
+        PlatilloOrdenadoDTO platilloOrdenado;
+        
+        try {
+            HibernateUtil.openSession();
+            HibernateUtil.beginTransaction();
+            
+            //Get platillos of an order by negocio
+            platilloOrdenado = (PlatilloOrdenadoDTO) HibernateUtil.getSession()
+                    .createCriteria(PlatilloOrdenadoDTO.class)
+                    .add(Restrictions.and(
+                            Restrictions.eq("orden", orden),
+                            Restrictions.eq("platillo", platillo)
+                    )).uniqueResult();
+
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            platilloOrdenado = null;
+            System.out.println(e);
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return platilloOrdenado;
     }
 }

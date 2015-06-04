@@ -25,6 +25,20 @@ function onMessage(event) {
             recibirNotificacion(response[1]);
             break;
 
+        case "idNegocio":
+            idNegocio = parseInt(response[1]);
+
+            var requestData = {
+                action: "getOrdenesNegocio",
+                idNegocio: idNegocio
+            };
+
+            socket.send(JSON.stringify(requestData));
+            break;
+
+        case "ordenesNegocio":
+            mostrarOrdenes(response[1]);
+            break;
     }
 
 }
@@ -66,8 +80,47 @@ $(document).ready(function () {
     //Get id negocio and ordenes
 });
 
-function notificarAlumno() {
-    
+function notificarAlumno(idOrden, idPlatillo) {
+
     //Para cuando seleccione que un platillo está listo
+    var requestData = {
+        action: "notifyOrderReady",
+        idOrden: idOrden,
+        idPlatillo: idPlatillo
+    };
+
+    socket.send(JSON.stringify(requestData));
+
+}
+
+function mostrarOrdenes(data) {
+
+    alert(data);
     
+    var ordenes = JSON.parse(data);
+
+    for (var i = 0; i < ordenes.length; i++) {
+        //Agregar ordenes....
+        var ord = '<article class="orden col-xs-10 col-sm-5 col-md-3 col-lg-3 clearfix">' +
+                '<h4>Orden ' + ordenes[i].id + '</h4>' +
+                '<span><strong>Hecha por:</strong> ' + ordenes[i].nombreAlumno + ' a las ' + ordenes[i].fecha + '</span>' +
+                '<ul>';
+
+        var platillos = ordenes[i].platillosOrdenados;
+
+        for (var j = 0; j < platillos.length; j++) {
+            ord += '<li class="producto">' + '<span>' + platillos[j].nombre + ' X ' + platillos[j].cantidad + '</span>' +
+                    '<button onclick="notificarAlumno(ordenes[i].id, platillos[j].id)" class="btn btn-sm btn-primary">' +
+                    '<span class="glyphicon glyphicon-time"></span>' +
+                    '</button>' +
+                    '</li>' +
+                    '<div style="clear: both;"></div>';
+
+        }
+        ord += '</ul>' +
+                '<h4 id="totalOrden">Total: $' + ordenes[i].precioTotal + '</h4>' +
+                '</article>';
+        
+        $('ordenesActivas').append(ord);
+    }
 }

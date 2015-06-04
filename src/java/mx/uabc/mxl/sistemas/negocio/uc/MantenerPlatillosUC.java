@@ -12,12 +12,9 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import mx.uabc.mxl.sistemas.negocio.facade.FACADEServiceLocator;
 import mx.uabc.mxl.sistemas.persistencia.dto.NegocioDTO;
-import mx.uabc.mxl.sistemas.persistencia.dto.OrdenDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloDTO.Categoria;
-import mx.uabc.mxl.sistemas.persistencia.dto.PlatilloOrdenadoDTO;
 import mx.uabc.mxl.sistemas.persistencia.dto.UsuarioDTO;
-import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 

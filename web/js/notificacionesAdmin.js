@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+//Agregar script a todas las paginas del Admin para que siempre escuche las notificaciones
 function recibirNotificacion(response) {
     var orden = JSON.parse(response);
 

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var socket = new WebSocket("ws://localhost:50337/CimaLunch/actions");
+var socket = new WebSocket("ws://localhost:8080/CimaLunch/actions");
 var idUsuario;
 var idNegocio;
 var ordenes;
@@ -65,10 +65,11 @@ function onMessage(event) {
 }
 
 function onOpen() {
-//Send get all negocios request
     var requestData = {
-        action: "getAllNegocios"
+        action: "getNegocioAdmin",
+        idAdmin: idUsuario
     };
+
     socket.send(JSON.stringify(requestData));
 }
 
@@ -95,13 +96,6 @@ $(document).ready(function () {
     $.get("SessionServlet", {action: "get", attrs: JSON.stringify(["idUsuario"])}, function (response) {
         //Success, get id usuario
         idUsuario = response[0];
-
-        var requestData = {
-            action: "getNegocioAdmin",
-            idAdmin: idUsuario
-        };
-
-        socket.send(JSON.stringify(requestData));
     });
     //Get id negocio and ordenes
 });
@@ -285,10 +279,4 @@ function mostrarInfoPlatillo(infoPlatillo) {
     $('#categoriaMod').val(platillos[productoSeleccionado].categoria);
     imagenBytes = platillo.imagen;
 
-}
-
-function recibirNotificacion(response) {
-    var orden = JSON.parse(response);
-
-    alert(orden);
 }
